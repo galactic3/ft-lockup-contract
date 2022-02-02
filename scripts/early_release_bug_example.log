@@ -1,0 +1,195 @@
+Starting deployment. Account id: dev-1643827924236-58031376703789, node: https://rpc.testnet.near.org, helper: https://helper.testnet.near.org, file: /tmp/empty.wasm
+Transaction Id 2XAgmpP7JBE5yt97nteoeqLR6JM7vNVTgSv2ADy6c5Ly
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/2XAgmpP7JBE5yt97nteoeqLR6JM7vNVTgSv2ADy6c5Ly
+Done deploying to dev-1643827924236-58031376703789
+ACC_ROOT=dev-1643827924236-58031376703789
+NOTE: In most cases, when connected to network "testnet", masterAccount will end in ".testnet"
+Saving key to '/home/oleg/.near-credentials/testnet/owner.dev-1643827924236-58031376703789.json'
+Account owner.dev-1643827924236-58031376703789 for network "testnet" was created.
+NOTE: In most cases, when connected to network "testnet", masterAccount will end in ".testnet"
+Saving key to '/home/oleg/.near-credentials/testnet/token.dev-1643827924236-58031376703789.json'
+Account token.dev-1643827924236-58031376703789 for network "testnet" was created.
+NOTE: In most cases, when connected to network "testnet", masterAccount will end in ".testnet"
+Saving key to '/home/oleg/.near-credentials/testnet/alice.dev-1643827924236-58031376703789.json'
+Account alice.dev-1643827924236-58031376703789 for network "testnet" was created.
+Starting deployment. Account id: token.dev-1643827924236-58031376703789, node: https://rpc.testnet.near.org, helper: https://helper.testnet.near.org, file: res/fungible_token.wasm
+Transaction Id 5mXLXrvib7cspr8BZtgotDx7V4pLpTjPRNZwf2tzXCaJ
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/5mXLXrvib7cspr8BZtgotDx7V4pLpTjPRNZwf2tzXCaJ
+Done deploying and initializing token.dev-1643827924236-58031376703789
+NOTE: In most cases, when connected to network "testnet", masterAccount will end in ".testnet"
+Saving key to '/home/oleg/.near-credentials/testnet/ft-lockup.dev-1643827924236-58031376703789.json'
+Account ft-lockup.dev-1643827924236-58031376703789 for network "testnet" was created.
+Starting deployment. Account id: ft-lockup.dev-1643827924236-58031376703789, node: https://rpc.testnet.near.org, helper: https://helper.testnet.near.org, file: res/ft_lockup.wasm
+Transaction Id GV27xiMprUmrJwL3sBU7rZtNFbuaffGR5jGuLXWcMLtX
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/GV27xiMprUmrJwL3sBU7rZtNFbuaffGR5jGuLXWcMLtX
+Done deploying and initializing ft-lockup.dev-1643827924236-58031376703789
+Scheduling a call: token.dev-1643827924236-58031376703789.storage_deposit(
+{
+  "account_id": "ft-lockup.dev-1643827924236-58031376703789"
+}
+) with attached 0.125 NEAR
+Doing account.functionCall()
+Transaction Id 82P3ya2poh1YSgj5MgSGqfiiwAsL3Z7TpZYZwNjLHFXx
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/82P3ya2poh1YSgj5MgSGqfiiwAsL3Z7TpZYZwNjLHFXx
+{ total: '1250000000000000000000', available: '0' }
+Scheduling a call: token.dev-1643827924236-58031376703789.storage_deposit(
+{
+  "account_id": "alice.dev-1643827924236-58031376703789"
+}
+) with attached 0.125 NEAR
+Doing account.functionCall()
+Transaction Id DnawCCLVyHeUQM8ejYRoCpAqZBUjAFJSdaRuVkTHiakM
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/DnawCCLVyHeUQM8ejYRoCpAqZBUjAFJSdaRuVkTHiakM
+{ total: '1250000000000000000000', available: '0' }
+Scheduling a call: token.dev-1643827924236-58031376703789.ft_balance_of(
+{
+  "account_id": "owner.dev-1643827924236-58031376703789"
+}
+)
+Doing account.functionCall()
+Transaction Id 5TzHvfkdFYNFnaDbddhaFdMBf6hARFxDXpbtuy9Sknjt
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/5TzHvfkdFYNFnaDbddhaFdMBf6hARFxDXpbtuy9Sknjt
+'1000000'
+Scheduling a call: token.dev-1643827924236-58031376703789.ft_balance_of(
+{
+  "account_id": "ft-lockup.dev-1643827924236-58031376703789"
+}
+)
+Doing account.functionCall()
+Transaction Id HzWJJVjg7u14T28aooVxdnUL19BjuWcQrmodVcyrjFbu
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/HzWJJVjg7u14T28aooVxdnUL19BjuWcQrmodVcyrjFbu
+'0'
+Scheduling a call: token.dev-1643827924236-58031376703789.ft_balance_of(
+{
+  "account_id": "alice.dev-1643827924236-58031376703789"
+}
+)
+Doing account.functionCall()
+Transaction Id GXgXAG4bDtGacT9wLSvuHJCLfDbHoDBNbJJuDVnQpZYo
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/GXgXAG4bDtGacT9wLSvuHJCLfDbHoDBNbJJuDVnQpZYo
+'0'
+BASIC SETUP FINISHED, CREATING LOCKUP
+{ "account_id": "alice.dev-1643827924236-58031376703789", "schedule": [ { "timestamp": 1700000000, "balance": "0" }, { "timestamp": 1800000000, "balance": "60000" } ], "claimed_balance": "0", "termination_config": { "terminator_id": "owner.dev-1643827924236-58031376703789", "vesting_schedule": { "Schedule": [ { "timestamp": 1600000000, "balance": "0" }, { "timestamp": 1700000000, "balance": "60000" } ] } } }
+Scheduling a call: token.dev-1643827924236-58031376703789.ft_transfer_call(
+{
+  "receiver_id": "ft-lockup.dev-1643827924236-58031376703789",
+  "amount": "60000",
+  "msg": "{ \"account_id\": \"alice.dev-1643827924236-58031376703789\", \"schedule\": [ { \"timestamp\": 1700000000, \"balance\": \"0\" }, { \"timestamp\": 1800000000, \"balance\": \"60000\" } ], \"claimed_balance\": \"0\", \"termination_config\": { \"terminator_id\": \"owner.dev-1643827924236-58031376703789\", \"vesting_schedule\": { \"Schedule\": [ { \"timestamp\": 1600000000, \"balance\": \"0\" }, { \"timestamp\": 1700000000, \"balance\": \"60000\" } ] } } }"
+}
+) with attached 0.000000000000000000000001 NEAR
+Doing account.functionCall()
+Receipts: FjJR2gZiUoCkxeK92P7gBMjT1kc1cYVdohMbfvSpE5JL, 5tgULS6XRQGUgNHFcrEWBfLHvoVSXCSNnB5xejrHkSME, H5EXhcoQvAbUYRK27rZQD1ZGHmjQsoquyxzc3jVKk9Q
+	Log [token.dev-1643827924236-58031376703789]: Transfer 60000 from owner.dev-1643827924236-58031376703789 to ft-lockup.dev-1643827924236-58031376703789
+Receipt: DCs7t7cQc23xpRPVqATkHvEMmrMbt3TQzLARK4JfCQfc
+	Log [token.dev-1643827924236-58031376703789]: Created new lockup for alice.dev-1643827924236-58031376703789 with index 0
+Transaction Id 7xkrgHFw7ffL9gLaW6rzgaLqf1bLi9tjDE99UtEccKKQ
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/7xkrgHFw7ffL9gLaW6rzgaLqf1bLi9tjDE99UtEccKKQ
+'60000'
+LOCKUP CREATED
+View call: ft-lockup.dev-1643827924236-58031376703789.get_account_lockups(
+{
+  "account_id": "alice.dev-1643827924236-58031376703789"
+}
+)
+[
+  [
+    0,
+    {
+      account_id: 'alice.dev-1643827924236-58031376703789',
+      schedule: [
+        { timestamp: 1700000000, balance: '0' },
+        { timestamp: 1800000000, balance: '60000' }
+      ],
+      claimed_balance: '0',
+      termination_config: {
+        terminator_id: 'owner.dev-1643827924236-58031376703789',
+        vesting_schedule: {
+          Schedule: [
+            { timestamp: 1600000000, balance: '0' },
+            { timestamp: 1700000000, balance: '60000' }
+          ]
+        }
+      },
+      total_balance: '60000',
+      unclaimed_balance: '0',
+      timestamp: 1643827989
+    }
+  ]
+]
+CLAIMING BEFORE TERMINATE
+Scheduling a call: ft-lockup.dev-1643827924236-58031376703789.claim({ })
+Doing account.functionCall()
+Receipt: HpeY2JRNNwAb6ayw78d1NQEHNySvKGnHmg9cUvUXorex
+	Log [ft-lockup.dev-1643827924236-58031376703789]: Total claim 0
+Transaction Id 8MG445smqR6ZiB7L1SMxaeT1C4J6ts9Todpy1pwhMULM
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/8MG445smqR6ZiB7L1SMxaeT1C4J6ts9Todpy1pwhMULM
+'0'
+CLAIMED FT BALANCE
+Scheduling a call: token.dev-1643827924236-58031376703789.ft_balance_of({ "account_id": "alice.dev-1643827924236-58031376703789" })
+Doing account.functionCall()
+Transaction Id p3VWqubNUQV4tRLviPi4oMAei11hthELfgQhn7uoVbg
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/p3VWqubNUQV4tRLviPi4oMAei11hthELfgQhn7uoVbg
+'0'
+TERMINATING
+Scheduling a call: ft-lockup.dev-1643827924236-58031376703789.terminate({ "lockup_index": 0 })
+Doing account.functionCall()
+Receipt: DFXrNZxTXjHSCwpcdrmSE2zTC3Dff7EL9PHQz8voktGG
+	Log [ft-lockup.dev-1643827924236-58031376703789]: Transfer 33704 from ft-lockup.dev-1643827924236-58031376703789 to owner.dev-1643827924236-58031376703789
+	Log [ft-lockup.dev-1643827924236-58031376703789]: Memo: Terminated lockup #0
+Transaction Id 24WSpfMP2XKFDVmzLoJaTuERRhkb7qbZHtHjBPkF3UbQ
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/24WSpfMP2XKFDVmzLoJaTuERRhkb7qbZHtHjBPkF3UbQ
+'33704'
+OWNER FT BALANCE
+Scheduling a call: token.dev-1643827924236-58031376703789.ft_balance_of({ "account_id": "owner.dev-1643827924236-58031376703789" })
+Doing account.functionCall()
+Transaction Id 3z81VJQB7T8yFrDyYnJQtPW2zqyEFiBRf8qSgYgx4zRC
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/3z81VJQB7T8yFrDyYnJQtPW2zqyEFiBRf8qSgYgx4zRC
+'973704'
+CLAIMING AFTER TERMINATE
+Scheduling a call: ft-lockup.dev-1643827924236-58031376703789.claim({ })
+Doing account.functionCall()
+Receipts: EmMUjxY9oVgtfw3F4Kqw9gXhegEWz7o3EoTFFsRhgej9, 4sCCBCVWAHGjGjQvZ4oKiePEJPk7e3Vi41dwnoNhQUq8, 4o1EzhLYfYsNN9ifHpSJuxNvb8eTaZSmREYxPV79ybCc
+	Log [ft-lockup.dev-1643827924236-58031376703789]: Claiming 26296 form lockup #0
+	Log [ft-lockup.dev-1643827924236-58031376703789]: Total claim 26296
+Receipt: 3F8VgJNiroXmMcoTmQDMAmaRLY5oo7gWrdjMhcSNTx4z
+	Log [ft-lockup.dev-1643827924236-58031376703789]: Transfer 26296 from ft-lockup.dev-1643827924236-58031376703789 to alice.dev-1643827924236-58031376703789
+	Log [ft-lockup.dev-1643827924236-58031376703789]: Memo: Claiming unlocked 26296 balance from ft-lockup.dev-1643827924236-58031376703789
+Transaction Id F9psUKzQrGqyHtgpFcqk2xN2j68H4kYRcFTQdEo2pHX4
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/F9psUKzQrGqyHtgpFcqk2xN2j68H4kYRcFTQdEo2pHX4
+'26296'
+CLAIMED FT BALANCE
+Scheduling a call: token.dev-1643827924236-58031376703789.ft_balance_of({ "account_id": "alice.dev-1643827924236-58031376703789" })
+Doing account.functionCall()
+Transaction Id 4tY8PUbog6CoLtJPHCsAX2RLNyqF2nGuGoxfuS6hChDL
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/4tY8PUbog6CoLtJPHCsAX2RLNyqF2nGuGoxfuS6hChDL
+'26296'
+CHECKING LOCKUP BY ID
+View call: ft-lockup.dev-1643827924236-58031376703789.get_lockup({ "index": 0 })
+{
+  account_id: 'alice.dev-1643827924236-58031376703789',
+  schedule: [
+    { timestamp: 1700000000, balance: '0' },
+    { timestamp: 43826667, balance: '26296' }
+  ],
+  claimed_balance: '26296',
+  termination_config: null,
+  total_balance: '26296',
+  unclaimed_balance: '0',
+  timestamp: 1643828031
+}
+LOCKUP SCHEDULE IS INVALID, non monotonic
