@@ -1,0 +1,39 @@
+Starting deployment. Account id: dev-1644010643934-18596472580839, node: https://rpc.testnet.near.org, helper: https://helper.testnet.near.org, file: res/ft_lockup.wasm
+Transaction Id AM31rwJX3Ga9bX5pjrXgYZME6SR7E8M8g2xFV2VMpAf7
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/AM31rwJX3Ga9bX5pjrXgYZME6SR7E8M8g2xFV2VMpAf7
+Done deploying and initializing dev-1644010643934-18596472580839
+View call: dev-1644010643934-18596472580839.hash_schedule(
+{
+  "schedule": []
+}
+)
+An error occured
+Error: Querying [object Object] failed: wasm execution failed with error: FunctionCallError(HostError(ProhibitedInView { method_name: "attached_deposit" })).
+{
+  "error": "wasm execution failed with error: FunctionCallError(HostError(ProhibitedInView { method_name: \"attached_deposit\" }))",
+  "logs": [],
+  "block_height": 81337195,
+  "block_hash": "JBmC2vAAis6pzZr9SgPY2P7SpU5ZiLntX9N8AcuCUaMT"
+}
+    at JsonRpcProvider.query (/home/oleg/.nvm/versions/node/v14.18.1/lib/node_modules/near-cli/node_modules/near-api-js/lib/providers/json-rpc-provider.js:123:19)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at async Account.viewFunction (/home/oleg/.nvm/versions/node/v14.18.1/lib/node_modules/near-cli/node_modules/near-api-js/lib/account.js:366:24)
+    at async exports.callViewFunction (/home/oleg/.nvm/versions/node/v14.18.1/lib/node_modules/near-cli/index.js:94:48)
+    at async Object.handler (/home/oleg/.nvm/versions/node/v14.18.1/lib/node_modules/near-cli/utils/exit-on-error.js:52:9)
+TypedError: Querying [object Object] failed: wasm execution failed with error: FunctionCallError(HostError(ProhibitedInView { method_name: "attached_deposit" })).
+{
+  "error": "wasm execution failed with error: FunctionCallError(HostError(ProhibitedInView { method_name: \"attached_deposit\" }))",
+  "logs": [],
+  "block_height": 81337195,
+  "block_hash": "JBmC2vAAis6pzZr9SgPY2P7SpU5ZiLntX9N8AcuCUaMT"
+}
+    at JsonRpcProvider.query (/home/oleg/.nvm/versions/node/v14.18.1/lib/node_modules/near-cli/node_modules/near-api-js/lib/providers/json-rpc-provider.js:123:19)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at async Account.viewFunction (/home/oleg/.nvm/versions/node/v14.18.1/lib/node_modules/near-cli/node_modules/near-api-js/lib/account.js:366:24)
+    at async exports.callViewFunction (/home/oleg/.nvm/versions/node/v14.18.1/lib/node_modules/near-cli/index.js:94:48)
+    at async Object.handler (/home/oleg/.nvm/versions/node/v14.18.1/lib/node_modules/near-cli/utils/exit-on-error.js:52:9) {
+  type: 'UntypedError',
+  context: undefined
+}
+METHOD FAILS INSIDE SDK INERNALS
