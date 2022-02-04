@@ -478,6 +478,49 @@ fn test_lockup_terminate_no_termination_config() {
 }
 
 #[test]
+fn test_lockup_terminate_wrong_terminator() {
+    let e = Env::init(None);
+    let users = Users::init(&e);
+    let amount = d(60000, TOKEN_DECIMALS);
+    e.set_time_sec(GENESIS_TIMESTAMP_SEC);
+    let lockups = e.get_account_lockups(&users.alice);
+    assert!(lockups.is_empty());
+    let lockup = Lockup {
+        account_id: users.alice.valid_account_id(),
+        schedule: Schedule(vec![
+            Checkpoint {
+                timestamp: GENESIS_TIMESTAMP_SEC,
+                balance: 0,
+            },
+            Checkpoint {
+                timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC,
+                balance: amount,
+            },
+        ]),
+        claimed_balance: 0,
+        termination_config: Some(TerminationConfig {
+            terminator_id: users.eve.valid_account_id(),
+            vesting_schedule: None,
+        }),
+    };
+
+    let balance: WrappedBalance = e.add_lockup(&e.owner, amount, &lockup).unwrap_json();
+    assert_eq!(balance.0, amount);
+    let lockups = e.get_account_lockups(&users.alice);
+    assert_eq!(lockups.len(), 1);
+    let lockup_index = lockups[0].0;
+    assert_eq!(lockups[0].1.total_balance, amount);
+    assert_eq!(lockups[0].1.claimed_balance, 0);
+    assert_eq!(lockups[0].1.unclaimed_balance, 0);
+
+    // TERMINATE
+    ft_storage_deposit(&users.dude, TOKEN_ID, &users.dude.account_id);
+    let res = e.terminate(&users.dude, lockup_index);
+    assert!(!res.is_ok());
+    assert!(format!("{:?}", res.status()).contains("Unauthorized"));
+}
+
+#[test]
 fn test_lockup_terminate_no_storage() {
     let e = Env::init(None);
     let users = Users::init(&e);
