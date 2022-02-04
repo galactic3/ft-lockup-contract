@@ -764,6 +764,52 @@ fn test_lockup_terminate_custom_vesting_invalid_hash() {
 }
 
 #[test]
+fn test_lockup_terminate_custom_vesting_incompatible_vesting_schedule_by_hash() {
+    let e = Env::init(None);
+    let users = Users::init(&e);
+    let amount = d(60000, TOKEN_DECIMALS);
+    e.set_time_sec(GENESIS_TIMESTAMP_SEC);
+    let lockups = e.get_account_lockups(&users.alice);
+    assert!(lockups.is_empty());
+
+    let (lockup_schedule, _vesting_schedule) = lockup_vesting_schedule(amount);
+    let incompatible_vesting_schedule = Schedule(vec![
+        Checkpoint { timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC * 4, balance: 0 },
+        Checkpoint { timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC * 4 + 1, balance: amount },
+    ]);
+    let incompatible_vesting_hash = e.hash_schedule(&incompatible_vesting_schedule);
+    let lockup = Lockup {
+        account_id: users.alice.valid_account_id(),
+        schedule: lockup_schedule,
+        claimed_balance: 0,
+        termination_config: Some(TerminationConfig {
+            terminator_id: users.eve.valid_account_id(),
+            vesting_schedule: Some(HashOrSchedule::Hash(incompatible_vesting_hash)),
+        }),
+    };
+
+    let balance: WrappedBalance = e.add_lockup(&e.owner, amount, &lockup).unwrap_json();
+    assert_eq!(balance.0, amount);
+    let lockups = e.get_account_lockups(&users.alice);
+    assert_eq!(lockups.len(), 1);
+    let lockup_index = lockups[0].0;
+
+    // 1Y, 1 / 4 vested, 0 unlocked
+    e.set_time_sec(GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC);
+    let lockups = e.get_account_lockups(&users.alice);
+    assert_eq!(lockups[0].1.total_balance, amount);
+    assert_eq!(lockups[0].1.claimed_balance, 0);
+    assert_eq!(lockups[0].1.unclaimed_balance, 0);
+
+    // TERMINATE
+    ft_storage_deposit(&users.eve, TOKEN_ID, &users.eve.account_id);
+    let res = e
+        .terminate_with_schedule(&users.eve, lockup_index, incompatible_vesting_schedule);
+    assert!(!res.is_ok());
+    assert!(format!("{:?}", res.status()).contains("The lockup schedule is ahead of"));
+}
+
+#[test]
 fn test_lockup_terminate_custom_vesting_terminate_before_cliff() {
     let e = Env::init(None);
     let users = Users::init(&e);
