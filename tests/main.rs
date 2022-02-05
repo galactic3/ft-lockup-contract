@@ -2,8 +2,8 @@ mod setup;
 
 use crate::setup::*;
 use ft_lockup::lockup::Lockup;
-use ft_lockup::termination::{TerminationConfig, HashOrSchedule};
 use ft_lockup::schedule::{Checkpoint, Schedule};
+use ft_lockup::termination::{HashOrSchedule, TerminationConfig};
 use near_sdk::json_types::WrappedBalance;
 
 const ONE_DAY_SEC: TimestampSec = 24 * 60 * 60;
@@ -753,12 +753,17 @@ fn test_lockup_terminate_custom_vesting_invalid_hash() {
 
     // TERMINATE
     let fake_schedule = Schedule(vec![
-        Checkpoint { timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC * 2, balance: 0 },
-        Checkpoint { timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC * 4, balance: amount },
+        Checkpoint {
+            timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC * 2,
+            balance: 0,
+        },
+        Checkpoint {
+            timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC * 4,
+            balance: amount,
+        },
     ]);
     ft_storage_deposit(&users.eve, TOKEN_ID, &users.eve.account_id);
-    let res = e
-        .terminate_with_schedule(&users.eve, lockup_index, fake_schedule);
+    let res = e.terminate_with_schedule(&users.eve, lockup_index, fake_schedule);
     assert!(!res.is_ok());
     assert!(format!("{:?}", res.status()).contains("The revealed schedule hash doesn't match"));
 }
@@ -774,8 +779,14 @@ fn test_lockup_terminate_custom_vesting_incompatible_vesting_schedule_by_hash() 
 
     let (lockup_schedule, _vesting_schedule) = lockup_vesting_schedule(amount);
     let incompatible_vesting_schedule = Schedule(vec![
-        Checkpoint { timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC * 4, balance: 0 },
-        Checkpoint { timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC * 4 + 1, balance: amount },
+        Checkpoint {
+            timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC * 4,
+            balance: 0,
+        },
+        Checkpoint {
+            timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC * 4 + 1,
+            balance: amount,
+        },
     ]);
     let incompatible_vesting_hash = e.hash_schedule(&incompatible_vesting_schedule);
     let lockup = Lockup {
@@ -803,8 +814,7 @@ fn test_lockup_terminate_custom_vesting_incompatible_vesting_schedule_by_hash() 
 
     // TERMINATE
     ft_storage_deposit(&users.eve, TOKEN_ID, &users.eve.account_id);
-    let res = e
-        .terminate_with_schedule(&users.eve, lockup_index, incompatible_vesting_schedule);
+    let res = e.terminate_with_schedule(&users.eve, lockup_index, incompatible_vesting_schedule);
     assert!(!res.is_ok());
     assert!(format!("{:?}", res.status()).contains("The lockup schedule is ahead of"));
 }
@@ -824,8 +834,14 @@ fn test_validate_schedule() {
     assert!(res.is_ok());
 
     let incompatible_vesting_schedule = Schedule(vec![
-        Checkpoint { timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC * 4, balance: 0 },
-        Checkpoint { timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC * 4 + 1, balance: amount },
+        Checkpoint {
+            timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC * 4,
+            balance: 0,
+        },
+        Checkpoint {
+            timestamp: GENESIS_TIMESTAMP_SEC + ONE_YEAR_SEC * 4 + 1,
+            balance: amount,
+        },
     ]);
     let res = e.validate_schedule(
         &lockup_schedule,

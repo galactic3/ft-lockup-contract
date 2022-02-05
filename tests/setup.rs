@@ -177,7 +177,11 @@ impl Env {
     }
 
     pub fn terminate(&self, user: &UserAccount, lockup_index: LockupIndex) -> ExecutionResult {
-        user.function_call(self.contract.contract.terminate(lockup_index, None), TERMINATE_GAS, 0)
+        user.function_call(
+            self.contract.contract.terminate(lockup_index, None),
+            TERMINATE_GAS,
+            0,
+        )
     }
 
     pub fn terminate_with_schedule(
@@ -187,8 +191,11 @@ impl Env {
         hashed_schedule: Schedule,
     ) -> ExecutionResult {
         user.function_call(
-            self.contract.contract.terminate(lockup_index, Some(hashed_schedule)),
-            TERMINATE_GAS, 0
+            self.contract
+                .contract
+                .terminate(lockup_index, Some(hashed_schedule)),
+            TERMINATE_GAS,
+            0,
         )
     }
 
@@ -205,13 +212,11 @@ impl Env {
         termination_schedule: Option<&Schedule>,
     ) -> ViewResult {
         self.near
-            .view_method_call(
-                self.contract.contract.validate_schedule(
-                    schedule.clone(),
-                    total_balance,
-                    termination_schedule.map(|x| x.clone()),
-                )
-            )
+            .view_method_call(self.contract.contract.validate_schedule(
+                schedule.clone(),
+                total_balance,
+                termination_schedule.map(|x| x.clone()),
+            ))
     }
 
     pub fn get_account_lockups(&self, user: &UserAccount) -> Vec<(LockupIndex, LockupView)> {
