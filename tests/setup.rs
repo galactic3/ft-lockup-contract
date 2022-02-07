@@ -227,6 +227,12 @@ impl Env {
         )
     }
 
+    pub fn get_num_lockups(&self) -> u32 {
+        self.near
+            .view_method_call(self.contract.contract.get_num_lockups())
+            .unwrap_json()
+    }
+
     pub fn get_deposit_whitelist(&self) -> Vec<AccountId> {
         self.near
             .view_method_call(self.contract.contract.get_deposit_whitelist())

@@ -1323,3 +1323,25 @@ fn test_deposit_whitelist_get() {
     let deposit_whitelist = e.get_deposit_whitelist();
     assert!(deposit_whitelist.is_empty());
 }
+
+#[test]
+fn test_get_num_lockups() {
+    let e = Env::init(None);
+    let users = Users::init(&e);
+    let amount = d(1, TOKEN_DECIMALS);
+    e.set_time_sec(GENESIS_TIMESTAMP_SEC);
+    let lockups = e.get_account_lockups(&users.alice);
+    assert!(lockups.is_empty());
+
+    // create some lockups
+    for _ in 0..3 {
+        let balance: WrappedBalance = e.add_lockup(
+            &e.owner,
+            amount,
+            &Lockup::new_unlocked(users.alice.account_id().clone(), amount),
+        ).unwrap_json();
+        assert_eq!(balance.0, amount);
+    }
+    let num_lockups = e.get_num_lockups();
+    assert_eq!(num_lockups, 3);
+}
