@@ -1167,3 +1167,17 @@ fn test_lockup_terminate_custom_vesting_during_lockup_cliff() {
     assert_eq!(lockup.claimed_balance, amount * 5 / 6);
     assert_eq!(lockup.unclaimed_balance, 0);
 }
+
+#[test]
+fn test_deposit_whitelist_get() {
+    let e = Env::init(None);
+    // let users = Users::init(&e);
+    // let amount = d(60000, TOKEN_DECIMALS);
+    // e.set_time_sec(GENESIS_TIMESTAMP_SEC);
+    // let lockups = e.get_account_lockups(&users.alice);
+    // assert!(lockups.is_empty());
+
+    // deposit whitelist has owner by default
+    let deposit_whitelist = e.get_deposit_whitelist();
+    assert_eq!(deposit_whitelist, vec![e.owner.account_id]);
+}

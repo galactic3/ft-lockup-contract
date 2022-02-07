@@ -1,7 +1,7 @@
 use near_contract_standards::fungible_token::metadata::{FungibleTokenMetadata, FT_METADATA_SPEC};
 use near_sdk::json_types::{Base58CryptoHash, ValidAccountId, WrappedBalance};
 use near_sdk::serde_json::json;
-use near_sdk::{env, serde_json, Balance, Gas, Timestamp};
+use near_sdk::{env, serde_json, AccountId, Balance, Gas, Timestamp};
 use near_sdk_sim::runtime::GenesisConfig;
 use near_sdk_sim::{
     deploy, init_simulator, to_yocto, ContractAccount, ExecutionResult, UserAccount, ViewResult,
@@ -197,6 +197,12 @@ impl Env {
             TERMINATE_GAS,
             0,
         )
+    }
+
+    pub fn get_deposit_whitelist(&self) -> Vec<AccountId> {
+        self.near
+            .view_method_call(self.contract.contract.get_deposit_whitelist())
+            .unwrap_json()
     }
 
     pub fn hash_schedule(&self, schedule: &Schedule) -> Base58CryptoHash {
