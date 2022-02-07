@@ -233,6 +233,12 @@ impl Env {
             .unwrap_json()
     }
 
+    pub fn get_lockups(&self, indices: &Vec<LockupIndex>) -> Vec<(LockupIndex, LockupView)> {
+        self.near
+            .view_method_call(self.contract.contract.get_lockups(indices.clone()))
+            .unwrap_json()
+    }
+
     pub fn get_deposit_whitelist(&self) -> Vec<AccountId> {
         self.near
             .view_method_call(self.contract.contract.get_deposit_whitelist())
