@@ -1263,8 +1263,14 @@ fn test_deposit_whitelist_get() {
     let lockup = Lockup {
         account_id: users.alice.valid_account_id(),
         schedule: Schedule(vec![
-            Checkpoint { timestamp: 0, balance: 0, },
-            Checkpoint { timestamp: 1, balance: amount, },
+            Checkpoint {
+                timestamp: 0,
+                balance: 0,
+            },
+            Checkpoint {
+                timestamp: 1,
+                balance: amount,
+            },
         ]),
         claimed_balance: 0,
         termination_config: None,
@@ -1290,10 +1296,7 @@ fn test_deposit_whitelist_get() {
     assert!(res.is_ok());
 
     let deposit_whitelist = e.get_deposit_whitelist();
-    assert_eq!(
-        deposit_whitelist,
-        vec![users.eve.account_id.clone()]
-    );
+    assert_eq!(deposit_whitelist, vec![users.eve.account_id.clone()]);
 
     // user not from whitelist cannot add users
     let res = e.add_to_deposit_whitelist(&e.owner, &users.dude.valid_account_id());
