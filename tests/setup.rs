@@ -199,6 +199,34 @@ impl Env {
         )
     }
 
+    pub fn remove_from_deposit_whitelist(
+        &self,
+        user: &UserAccount,
+        account_id: &ValidAccountId,
+    ) -> ExecutionResult {
+        user.function_call(
+            self.contract
+                .contract
+                .remove_from_deposit_whitelist(account_id.clone()),
+            DEFAULT_GAS,
+            1,
+        )
+    }
+
+    pub fn add_to_deposit_whitelist(
+        &self,
+        user: &UserAccount,
+        account_id: &ValidAccountId,
+    ) -> ExecutionResult {
+        user.function_call(
+            self.contract
+                .contract
+                .add_to_deposit_whitelist(account_id.clone()),
+            DEFAULT_GAS,
+            1,
+        )
+    }
+
     pub fn get_deposit_whitelist(&self) -> Vec<AccountId> {
         self.near
             .view_method_call(self.contract.contract.get_deposit_whitelist())

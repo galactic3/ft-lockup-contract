@@ -1171,7 +1171,7 @@ fn test_lockup_terminate_custom_vesting_during_lockup_cliff() {
 #[test]
 fn test_deposit_whitelist_get() {
     let e = Env::init(None);
-    // let users = Users::init(&e);
+    let users = Users::init(&e);
     // let amount = d(60000, TOKEN_DECIMALS);
     // e.set_time_sec(GENESIS_TIMESTAMP_SEC);
     // let lockups = e.get_account_lockups(&users.alice);
@@ -1179,5 +1179,25 @@ fn test_deposit_whitelist_get() {
 
     // deposit whitelist has owner by default
     let deposit_whitelist = e.get_deposit_whitelist();
-    assert_eq!(deposit_whitelist, vec![e.owner.account_id]);
+    assert_eq!(deposit_whitelist, vec![e.owner.account_id.clone()]);
+
+    // add to whitelist
+    let result = e.add_to_deposit_whitelist(&e.owner, &users.eve.valid_account_id());
+    assert!(result.is_ok());
+
+    let deposit_whitelist = e.get_deposit_whitelist();
+    assert_eq!(
+        deposit_whitelist,
+        vec![e.owner.account_id.clone(), users.eve.account_id.clone()]
+    );
+
+    // remove from whiltelist
+    let result = e.remove_from_deposit_whitelist(&users.eve, &e.owner.valid_account_id());
+    assert!(result.is_ok());
+
+    let deposit_whitelist = e.get_deposit_whitelist();
+    assert_eq!(
+        deposit_whitelist,
+        vec![users.eve.account_id.clone()]
+    );
 }
