@@ -1347,8 +1347,33 @@ fn test_get_lockups() {
     let num_lockups = e.get_num_lockups();
     assert_eq!(num_lockups, 3);
 
+    // get_lockups by indices
     let res = e.get_lockups(&vec![2, 0]);
     assert_eq!(res.len(), 2);
     assert_eq!(res[0].1.account_id, users.charlie.valid_account_id());
     assert_eq!(res[1].1.account_id, users.alice.valid_account_id());
+
+    // get_lockups_paged from to
+    let res = e.get_lockups_paged(Some(1), Some(2));
+    assert_eq!(res.len(), 1);
+    assert_eq!(res[0].1.account_id, users.bob.valid_account_id());
+
+    // get_lockups_paged from
+    let res = e.get_lockups_paged(Some(1), None);
+    assert_eq!(res.len(), 2);
+    assert_eq!(res[0].1.account_id, users.bob.valid_account_id());
+    assert_eq!(res[1].1.account_id, users.charlie.valid_account_id());
+
+    // get_lockups_paged to
+    let res = e.get_lockups_paged(None, Some(2));
+    assert_eq!(res.len(), 2);
+    assert_eq!(res[0].1.account_id, users.alice.valid_account_id());
+    assert_eq!(res[1].1.account_id, users.bob.valid_account_id());
+
+    // get_lockups_paged all
+    let res = e.get_lockups_paged(None, None);
+    assert_eq!(res.len(), 3);
+    assert_eq!(res[0].1.account_id, users.alice.valid_account_id());
+    assert_eq!(res[1].1.account_id, users.bob.valid_account_id());
+    assert_eq!(res[2].1.account_id, users.charlie.valid_account_id());
 }
