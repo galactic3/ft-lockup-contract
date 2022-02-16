@@ -245,9 +245,8 @@ impl Env {
         limit: Option<LockupIndex>,
     ) -> Vec<(LockupIndex, LockupView)> {
         self.near
-            .view_method_call(
-                self.contract.contract.get_lockups_paged(from_index, limit),
-            ).unwrap_json()
+            .view_method_call(self.contract.contract.get_lockups_paged(from_index, limit))
+            .unwrap_json()
     }
 
     pub fn get_deposit_whitelist(&self) -> Vec<AccountId> {

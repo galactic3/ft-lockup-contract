@@ -1335,11 +1335,13 @@ fn test_get_lockups() {
 
     // create some lockups
     for user in vec![&users.alice, &users.bob, &users.charlie] {
-        let balance: WrappedBalance = e.add_lockup(
-            &e.owner,
-            amount,
-            &Lockup::new_unlocked(user.account_id().clone(), amount),
-        ).unwrap_json();
+        let balance: WrappedBalance = e
+            .add_lockup(
+                &e.owner,
+                amount,
+                &Lockup::new_unlocked(user.account_id().clone(), amount),
+            )
+            .unwrap_json();
         assert_eq!(balance.0, amount);
     }
 
