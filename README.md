@@ -30,6 +30,11 @@ export LOCKUP_CONTRACT_ID=lockup.$OWNER_ID
 near create-account $LOCKUP_CONTRACT_ID --masterAccount $OWNER_ID
 ```
 
+### build
+```shell
+./build.sh
+```
+
 ### deploy and initialize
 ```shell
 near deploy --accountId $LOCKUP_CONTRACT_ID --wasmFile ./res/ft_lockup.wasm --initFunction new --initArgs '{"token_account_id": "'$TOKEN_CONTRACT_ID'", "deposit_whitelist": ["'$OWNER_ID'"]}'
@@ -61,7 +66,7 @@ near view $LOCKUP_CONTRACT_ID get_account_lockups '{"account_id": "'$USER_ID'"}'
 near view $TOKEN_CONTRACT_ID ft_balance_of '{"account_id": "'$USER_ID'"}'
 ```
 
-### claim all user lockups (should require 1 yocto?)
+### claim all user lockups
 ```shell
 near call $LOCKUP_CONTRACT_ID claim '' --account-id $USER_ID --gas 300000000000000
 ```
