@@ -22,7 +22,7 @@
 export OWNER_ID=owner_account.testnet
 export USER_ID=user_account.testnet
 export TOKEN_CONTRACT_ID=wrap.testnet
-export LOCKUP_CONTRACT_ID=lockup.owner_account.testnet
+export LOCKUP_CONTRACT_ID=lockup.$OWNER_ID
 ```
 
 ### create subaccount for lockup contract
