@@ -45,8 +45,19 @@ near deploy --accountId $LOCKUP_CONTRACT_ID --wasmFile ./res/ft_lockup.wasm --in
 near call $TOKEN_CONTRACT_ID storage_deposit '{"account_id": "'$LOCKUP_CONTRACT_ID'"}' --accountId $OWNER_ID --amount .00125
 ```
 
+### register owner/user in token contract (if needed)
+```shell
+near call $TOKEN_CONTRACT_ID storage_deposit '{"account_id": "'$OWNER_ID'"}' --accountId $OWNER_ID --amount .00125
+near call $TOKEN_CONTRACT_ID storage_deposit '{"account_id": "'$USER_ID'"}' --accountId $USER_ID --amount .00125
+```
+
+### be sure owner has enough tokens on his wallet. in case of wNEAR use:
+```shell
+near call $TOKEN_CONTRACT_ID near_deposit '' --accountId $OWNER_ID --amount 10
+```
+
 ### add 1 wNEAR (24 decimals) with linear lockup for one year
-```shell  
+```shell
 TIMESTAMP=$(date +%s)
 ONE_YEAR_LATER=$((TIMESTAMP+365*24*60*60))
 AMOUNT=1000000000000000000000000 
