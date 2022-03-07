@@ -32,7 +32,7 @@ near create-account $LOCKUP_CONTRACT_ID --masterAccount $OWNER_ID
 
 ### deploy and initialize
 ```shell
-near deploy --accountId $LOCKUP_CONTRACT_ID --wasmFile ft_lockup.wasm --initFunction new --initArgs '{"token_account_id": "'$TOKEN_CONTRACT_ID'", "deposit_whitelist": ["'$OWNER_ID'"]}'
+near deploy --accountId $LOCKUP_CONTRACT_ID --wasmFile ./res/ft_lockup.wasm --initFunction new --initArgs '{"token_account_id": "'$TOKEN_CONTRACT_ID'", "deposit_whitelist": ["'$OWNER_ID'"]}'
 ```
 
 ### register lockup contract in token contract
