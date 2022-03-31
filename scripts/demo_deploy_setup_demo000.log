@@ -1,0 +1,338 @@
+V ~/projects/g3/ft-lockup-contract % bash scripts/demo_deploy_setup.sh
+ACC_ROOT=demo000.ft-lockup.testnet
+Saving key to '/home/alex/.near-credentials/testnet/owner.demo000.ft-lockup.testnet.json'
+Account owner.demo000.ft-lockup.testnet for network "testnet" was created.
+Saving key to '/home/alex/.near-credentials/testnet/token.demo000.ft-lockup.testnet.json'
+Account token.demo000.ft-lockup.testnet for network "testnet" was created.
+Saving key to '/home/alex/.near-credentials/testnet/alice.demo000.ft-lockup.testnet.json'
+Account alice.demo000.ft-lockup.testnet for network "testnet" was created.
+Saving key to '/home/alex/.near-credentials/testnet/bob.demo000.ft-lockup.testnet.json'
+Account bob.demo000.ft-lockup.testnet for network "testnet" was created.
+Saving key to '/home/alex/.near-credentials/testnet/carol.demo000.ft-lockup.testnet.json'
+Account carol.demo000.ft-lockup.testnet for network "testnet" was created.
+Starting deployment. Account id: token.demo000.ft-lockup.testnet, node: https://rpc.testnet.near.org, helper: https://helper.testnet.near.org, file: res/fungible_token.wasm
+Retrying request to broadcast_tx_commit as it has timed out [
+  'HwAAAHRva2VuLmRlbW8wMDAuZnQtbG9ja3VwLnRlc3RuZXQAkGvhc8zbgueUD0SAp36ULPckb3cnMoEpt3R588BFAeLBfICLSk4AAB8AAAB0b2tlbi5kZW1vMDAwLmZ0LWxvY2t1cC50ZXN0bmV0IZFC4eLuBFY0xtcwT+XPCui7bZa4pcXjXBP4JvEAglcCAAAAAVRrAwAAYXNtAQAAAAGUBERgAX8AYAABf2ADf35+AGACf34AYAR/fn5+AX5gAn9+AX5gA39+fgF+YAF/AX5gCn9+fn5+fn5+fn4AYAR/fn5+AGAFf35+fn4AYAh/fn5+fn5+fgBgBn9+fn5+fgF+YAJ/fwF/YAJ/fwBgA39/fwF/YAJ+fgBgAX4BfmABfgBgAAF+YAN+fn4AYAAAYAh+fn5+fn5+fgF+YAl+fn5+fn5+fn4BfmACfn4BfmADfn5+AX5gB35+fn5+fn4AYAR+fn5+AGAJfn5+fn5+fn5+AGAFfn5+fn4BfmADf39/AGAFf39/f38AYAJ/fABgAX8Bf2AEf39/fwBgBH9/f38Bf2AGf39/f39/AGAFf39/f38Bf2AJf35+fn5+fn5+AX5gCn9+fn5+fn5+fn4BfmAEf39+fgBgBX9/fn5/AGAHf39/fn5/fwBgBn9/f39+fgBgBH9/f34AYAV/f39+fwBgBX9+fn5/AGAGf39/fn5/AGAJf39+fn9/fn5+AGAJf39/fn5/fn5+AGAFf39+fn4AYAN/f38BfmACf38BfmACfn8BfmADfn9/AGAIfn9/f39+fn4AYAR+fn5/AGADfn9+AGAIfn9+fn5/f38AYAJ+fwBgB39/f39+fn4AYAd/f39/f39/AGAEf3x/fwF/YAZ/f39/f38Bf2ADfn9/AX9gBH5+f38Bf2AEf35+fwBgBn9+fn5+fwAClwkwA2Vudg1yZWFkX3JlZ2lzdGVyABADZW52DHJlZ2lzdGVyX2xlbgARA2VudhJjdXJyZW50X2FjY291bnRfaWQAEgNlbnYRc2lnbmVyX2FjY291bnRfaWQAEgNlbnYRc2lnbmVyX2FjY291bnRfcGsAEgNlbnYWcHJlZGVjZXNzb3JfYWNjb3VudF9pZAASA2VudgVpbnB1dAASA2VudgtibG9ja19pbmRleAATA2Vudg9ibG9ja190aW1lc3RhbXAAEwNlbnYMZXBvY2hfaGVpZ2h0ABMDZW52DXN0b3JhZ2VfdXNhZ2UAEwNlbnYPYWNjb3VudF9iYWxhbmNlABIDZW52FmFjY291bnRfbG9ja2VkX2JhbGFuY2UAEgNlbnYQYXR0YWNoZWRfZGVwb3NpdAASA2VudgtwcmVwYWlkX2dhcwATA2Vudgh1c2VkX2dhcwATA2VudgtyYW5kb21fc2VlZAASA2VudgZzaGEyNTYAFANlbnYJa2VjY2FrMjU2ABQDZW52CWtlY2NhazUxMgAUA2Vudgx2YWx1ZV9yZXR1cm4AEANlbnYFcGFuaWMAFQNlbnYKcGFuaWNfdXRmOAAQA2Vudghsb2dfdXRmOAAQA2Vudglsb2dfdXRmMTYAEANlbnYOcHJvbWlzZV9jcmVhdGUAFgNlbnYMcHJvbWlzZV90aGVuABcDZW52C3Byb21pc2VfYW5kABgDZW52FHByb21pc2VfYmF0Y2hfY3JlYXRlABgDZW52EnByb21pc2VfYmF0Y2hfdGhlbgAZA2VudiNwcm9taXNlX2JhdGNoX2FjdGlvbl9jcmVhdGVfYWNjb3VudAASA2VudiRwcm9taXNlX2JhdGNoX2FjdGlvbl9kZXBsb3lfY29udHJhY3QAFANlbnYicHJvbWlzZV9iYXRjaF9hY3Rpb25fZnVuY3Rpb25fY2FsbAAaA2Vudh1wcm9taXNlX2JhdGNoX2FjdGlvbl90cmFuc2ZlcgAQA2Vudhpwcm9taXNlX2JhdGNoX2FjdGlvbl9zdGFrZQAbA2Vudi1wcm9taXNlX2JhdGNoX2FjdGlvbl9hZGRfa2V5X3dpdGhfZnVsbF9hY2Nlc3MAGwNlbnYvcHJvbWlzZV9iYXRjaF9hY3Rpb25fYWRkX2tleV93aXRoX2Z1bmN0aW9uX2NhbGwAHANlbnYfcHJvbWlzZV9iYXRjaF9hY3Rpb25fZGVsZXRlX2tleQAUA2VudiNwcm9taXNlX2JhdGNoX2FjdGlvbl9kZWxldGVfYWNjb3VudAAUA2VudhVwcm9taXNlX3Jlc3VsdHNfY291bnQAEwNlbnYOcHJvbWlzZV9yZXN1bHQAGANlbnYOcHJvbWlzZV9yZXR1cm4AEgNlbnYNc3RvcmFnZV93cml0ZQAdA2VudgxzdG9yYWdlX3JlYWQAGQNlbnYOc3RvcmFnZV9yZW1vdmUA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hDcDUCACQcAAaiACQdAAahD5hoCAACAAIAIpA0A3AgRBASEDCyAAIAM2AgAgAkHgAGokgICAgAALSQEBfyOAgICAAEEQayIFJICAgIAAIAVBCGpBACADIAEgAiAEEL2BgIAAIAAgBSgCCDYCACAAIAUoAgw2AgQgBUEQaiSAgICAAAstAAJAIAIgA08NACADIAIgBBDTh4CAAAALIAAgAiADazYCBCAAIAEgA2o2AgALRgIBfwF+I4CAgIAAQRBrIgIkgICAgAAgAkEIaiABQQAQy4aAgAAgAikDCCEDIABBADYCCCAAIAM3AgAgAkEQaiSAgICAAAtvAgF/AX4jgICAgABBEGsiAySAgICAACADQQhqIAEgAhCxgICAAAJAAkAgAykDCCIEp0H/AXFBA0cNACAAQQM6AAAMAQsgAyAENwMIIAMgA0EIahD5hoCAACAAIAMpAwA3AgALIANBEGokgICAgAALNgEBfyOAgICAAEEQayIDJICAgIAAIAMgASACENWFgIAAIAAgAxC4gICAACADQRBqJICAgIAAC/8BAQJ/I4CAgIAAQYACayICJICAgIAAIAJBkAFqQQhqIgMgAUEIaigCADYCACACIAEpAgA3A5ABIAJBCGogAkGQAWoQy4WAgAAgAkGQAWogAkEIahDNgICAAAJAAkACQCACKAKQAUEBRw0AIAAgAigClAE2AgQgAEEBNgIADAELIAJBKGogA0HoABCoiICAABoCQCACQQhqEPqCgIAAIgFFDQAgAEEBNgIAIAAgATYCBCACQShqEM6AgIAADAELIABBCGogAkEoakHoABCoiICAABogAEEANgIAIAJBFGoQzICAgAAMAQsgAkEUahDMgICAAAsgAkGAAmokgICAgAALNgEBfyOAgICAAEEQayIDJICAgIAAIAMgASACENWFgIAAIAAgAxC6gICAACADQRBqJICAgIAAC4sCAQF/I4CAgIAAQcAAayICJICAgIAAIAJBMGpBCGogAUEIaigCADYCACACIAEpAgA3AzAgAiACQTBqEMuFgIAAIAJBMGogAhDTgICAAAJAAkACQCACKAIwQQFHDQAgACACKAI0NgIEIABBATYCAAwBCyACQSBqQQhqIAJBMGpBDGooAgA2AgAgAiACKQI0NwMgAkAgAhD6goCAACIBRQ0AIABBATYCACAAIAE2AgQgAkEgahDMgICAAAwBCyAAQQRqIgEgAikDIDcCACAAQQA2AgAgAUEIaiACQSBqQQhqKAIANgIAIAJBDGoQzICAgAAMAQsgAkEMahDMgICAAAsgAkHAAGokgICAgAALNgEBfyOAgICAAEEQayIDJICAgIAAIAMgASACENWFgIAAIAAgAxC8gICAACADQRBqJICAgIAAC4sCAQF/I4CAgIAAQcAAayICJICAgIAAIAJBMGpBCGogAUEIaigCADYCACACIAEpAgA3AzAgAiACQTBqEMuFgIAAIAJBMGogAhDUgICAAAJAAkACQCACKAIwQQFHDQAgACACKAI0NgIEIABBATYCAAwBCyACQSBqQQhqIAJBMGpBDGooAgA2AgAgAiACKQI0NwMgAkAgAhD6goCAACIBRQ0AIABBATYCACAAIAE2AgQgAkEgahDMgICAAAwBCyAAQQRqIgEgAikDIDcCACAAQQA2AgAgAUEIaiACQSBqQQhqKAIANgIAIAJBDGoQzICAgAAMAQsgAkEMahDMgICAAAsgAkHAAGokgICAgAALNgEBfyOAgICAAEEQayIDJICAgIAAIAMgASACENWFgIAAIAAgAxC+gICAACADQRBqJICAgIAAC5cCAQF/I4CAgIAAQdAAayICJICAgIAAIAJBOGpBCGogAUEIaigCADYCACACIAEpAgA3AzggAkEIaiACQThqEMuFgIAAIAJBOGogAkEIahDPgICAAAJAAkACQCACKAI4QQFHDQAgACACKAI8NgIEIABBATYCAAwBCyACQShqQQhqIAJBOGpBDGopAgA3AwAgAiACKQI8NwMoAkAgAkEIahD6goCAACIBRQ0AIABBATYCACAAIAE2AgQgAkEoahDQgICAAAwBCyAAQQRqIgEgAikDKDcCACAAQQA2AgAgAUEIaiACQShqQQhqKQMANwIAIAJBCGpBDGoQzICAgAAMAQsgAkEUahDMgICAAAsgAkHQAGokgICAgAALNgEBfyOAgICAAEEQayIDJICAgIAAIAMgASACENWFgIAAIAAgAxDAgICAACADQRBqJICAgIAAC/oBAQJ/I4CAgIAAQYABayICJICAgIAAIAJB0ABqQQhqIgMgAUEIaigCADYCACACIAEpAgA3A1AgAkEIaiACQdAAahDLhYCAACACQdAAaiACQQhqENaAgIAAAkACQAJAIAIoAlBBAUcNACAAIAIoAlQ2AgQgAEEBNgIADAELIAJBKGogA0EoEKiIgIAAGgJAIAJBCGoQ+oKAgAAiAUUNACAAQQE2AgAgACABNgIEIAJBKGoQ14CAgAAMAQsgAEEIaiACQShqQSgQqIiAgAAaIABBADYCACACQRRqEMyAgIAADAELIAJBFGoQzICAgAALIAJBgAFqJICAgIAACzYBAX8jgICAgABBEGsiAySAgICAACADIAEgAhDVhYCAACAAIAMQwoCAgAAgA0EQaiSAgICAAAvfAgEDfyOAgICAAEHwAGsiAiSAgICAACACQcgAakEIaiABQQhqKAIANgIAIAIgASkCADcDSCACQQhqIAJByABqEMuFgIAAIAJByABqIAJBCGoQy4CAgAACQAJAAkAgAigCSEEBRw0AIAAgAigCTDYCBCAAQQE2AgAMAQsgAkEoakEYaiIDIAJByABqQSBqKQMANwMAIAJBKGpBEGoiASACQcgAakEYaikDADcDACACQShqQQhqIAJByABqQRBqKQMANwMAIAIgAikDUDcDKAJAIAJBCGoQ+oKAgAAiBEUNACAAQQE2AgAgACAENgIEIAEQzICAgAAMAQsgAEEANgIAIABBCGogAikDKDcDACAAQSBqIAMpAwA3AwAgAEEYaiABKQMANwMAIABBEGogAkEoakEIaikDADcDACACQRRqEMyAgIAADAELIAJBFGoQzICAgAALIAJB8ABqJICAgIAACzYBAX8jgICAgABBEGsiAySAgICAACADIAEgAhDVhYCAACAAIAMQxICAgAAgA0EQaiSAgICAAAv6AQECfyOAgICAAEGgAWsiAiSAgICAACACQeAAakEIaiIDIAFBCGooAgA2AgAgAiABKQIANwNgIAJBCGogAkHgAGoQy4WAgAAgAkHgAGogAkEIahDRgICAAAJAAkACQCACKAJgQQFHDQAgACACKAJkNgIEIABBATYCAAwBCyACQShqIANBOBCoiICAABoCQCACQQhqEPqCgIAAIgFFDQAgAEEBNgIAIAAgATYCBCACQShqENKAgIAADAELIABBCGogAkEoakE4EKiIgIAAGiAAQQA2AgAgAkEUahDMgICAAAwBCyACQRRqEMyAgIAACyACQaABaiSAgICAAAs2AQF/I4CAgIAAQRBrIgMkgICAgAAgAyABIAIQ1YWAgAAgACADEMaAgIAAIANBEGokgICAgAAL/wECAX8DfiOAgICAAEHAAGsiAiSAgICAACACQSBqQQhqIAFBCGooAgA2AgAgAiABKQIANwMgIAIgAkEgahDLhYCAACACQSBqIAIQ2oCAgAACQAJAAkAgAigCIEEBRw0AIAAgAigCJDYCBCAAQQE2AgAMAQsgAkEgakEYaikDACEDIAJBIGpBEGopAwAhBCACKQMoIQUCQCACEPqCgIAAIgFFDQAgAEEBNgIAIAAgATYCBAwBCyAAQQA2AgAgAEEYaiADNwMAIABBEGogBDcDACAAQQhqIAU3AwAgAkEMahDMgICAAAwBCyACQQxqEMyAgIAACyACQcAAaiSAgICAAAs2AQF/I4CAgIAA'... 289476 more characters
+]
+Transaction Id BdMRMFM3qXX8jAFK9o8SsXrhGA4qs3DVajLa5x1gJqpf
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/BdMRMFM3qXX8jAFK9o8SsXrhGA4qs3DVajLa5x1gJqpf
+Done deploying and initializing token.demo000.ft-lockup.testnet
+Saving key to '/home/alex/.near-credentials/testnet/ft-lockup.demo000.ft-lockup.testnet.json'
+Account ft-lockup.demo000.ft-lockup.testnet for network "testnet" was created.
+Starting deployment. Account id: ft-lockup.demo000.ft-lockup.testnet, node: https://rpc.testnet.near.org, helper: https://helper.testnet.near.org, file: res/ft_lockup.wasm
+Transaction Id BwxQbSfrZFUWKQa88CYdJgBBSx6zMHCFixUfRoieEmuG
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/BwxQbSfrZFUWKQa88CYdJgBBSx6zMHCFixUfRoieEmuG
+Done deploying and initializing ft-lockup.demo000.ft-lockup.testnet
+Scheduling a call: token.demo000.ft-lockup.testnet.storage_deposit(
+{
+  "account_id": "ft-lockup.demo000.ft-lockup.testnet"
+}
+) with attached 0.125 NEAR
+Doing account.functionCall()
+Transaction Id BK6ZwwCJ6cWVnHQwqmKnNXCEDtnc3R9UdpYDm2xMHCxe
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/BK6ZwwCJ6cWVnHQwqmKnNXCEDtnc3R9UdpYDm2xMHCxe
+{ total: '1250000000000000000000', available: '0' }
+Scheduling a call: token.demo000.ft-lockup.testnet.storage_deposit(
+{
+  "account_id": "alice.demo000.ft-lockup.testnet"
+}
+) with attached 0.125 NEAR
+Doing account.functionCall()
+Retrying request to broadcast_tx_commit as it has timed out [
+  'HwAAAG93bmVyLmRlbW8wMDAuZnQtbG9ja3VwLnRlc3RuZXQAgskhLOLj94E2A8TEZMMhHiEQ+f1loSuOGvzjxXP+8LOCMTSLSk4AAB8AAAB0b2tlbi5kZW1vMDAwLmZ0LWxvY2t1cC50ZXN0bmV0BZ9qWsie/uc7QT8tQJdoOmiElfbR0cn+lSIrVd4kTUgBAAAAAg8AAABzdG9yYWdlX2RlcG9zaXQwAAAAeyJhY2NvdW50X2lkIjoiYWxpY2UuZGVtbzAwMC5mdC1sb2NrdXAudGVzdG5ldCJ9AOBX60gbAAAAACC0ndl5Q3gaAAAAAAAAACjQjSoW8kDFTot0vl5DxaUCzf/p3gdwRFss7xJhljbPOQ9+BbWtvk3wny4BIyv7H8sKprH7lcOyWhUzOS2OsQo='
+]
+Transaction Id 2e6VMp58ficZRdDzJVPr4Co8C7QBki8po7pNo3W6FWhN
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/2e6VMp58ficZRdDzJVPr4Co8C7QBki8po7pNo3W6FWhN
+{ total: '1250000000000000000000', available: '0' }
+Scheduling a call: token.demo000.ft-lockup.testnet.ft_balance_of(
+{
+  "account_id": "owner.demo000.ft-lockup.testnet"
+}
+)
+Doing account.functionCall()
+Transaction Id 5sXtjCb5dMCAd2874r5oNA27xNitPAbEXvxsTf26PWwA
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/5sXtjCb5dMCAd2874r5oNA27xNitPAbEXvxsTf26PWwA
+'1000000000000000000'
+Scheduling a call: token.demo000.ft-lockup.testnet.ft_balance_of(
+{
+  "account_id": "ft-lockup.demo000.ft-lockup.testnet"
+}
+)
+Doing account.functionCall()
+Transaction Id 8MeRbHHgT9EqLBFWqVB98fPgqhjHAKFYybmeuJFNcfCG
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/8MeRbHHgT9EqLBFWqVB98fPgqhjHAKFYybmeuJFNcfCG
+'0'
+Scheduling a call: token.demo000.ft-lockup.testnet.ft_balance_of(
+{
+  "account_id": "alice.demo000.ft-lockup.testnet"
+}
+)
+Doing account.functionCall()
+Transaction Id FEt4cY4X6Lz4Fzc5Wb9SR2MqxiPmwVZBgTPySQrmTP7v
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/FEt4cY4X6Lz4Fzc5Wb9SR2MqxiPmwVZBgTPySQrmTP7v
+'0'
+BASIC SETUP FINISHED, CREATING LOCKUP
+{ "account_id": "alice.demo000.ft-lockup.testnet", "schedule": [ { "timestamp": 1500000000, "balance": "0000000000" }, { "timestamp": 1600000000, "balance": "0000000000" }, { "timestamp": 1700000000, "balance": "100000000000" } ], "claimed_balance": "0", "termination_config": { "terminator_id": "owner.demo000.ft-lockup.testnet", "vesting_schedule": { "Schedule": [ { "timestamp": 1500000000, "balance": "0000000000" }, { "timestamp": 1549999999, "balance": "10000000000" }, { "timestamp": 1550000000, "balance": "25000000000" }, { "timestamp": 1700000000, "balance": "100000000000" } ] } } }
+Scheduling a call: token.demo000.ft-lockup.testnet.ft_transfer_call(
+{
+  "receiver_id": "ft-lockup.demo000.ft-lockup.testnet",
+  "amount": "100000000000",
+  "msg": "{ \"account_id\": \"alice.demo000.ft-lockup.testnet\", \"schedule\": [ { \"timestamp\": 1500000000, \"balance\": \"0000000000\" }, { \"timestamp\": 1600000000, \"balance\": \"0000000000\" }, { \"timestamp\": 1700000000, \"balance\": \"100000000000\" } ], \"claimed_balance\": \"0\", \"termination_config\": { \"terminator_id\": \"owner.demo000.ft-lockup.testnet\", \"vesting_schedule\": { \"Schedule\": [ { \"timestamp\": 1500000000, \"balance\": \"0000000000\" }, { \"timestamp\": 1549999999, \"balance\": \"10000000000\" }, { \"timestamp\": 1550000000, \"balance\": \"25000000000\" }, { \"timestamp\": 1700000000, \"balance\": \"100000000000\" } ] } } }"
+}
+) with attached 0.000000000000000000000001 NEAR
+Doing account.functionCall()
+Receipts: 3aeUfZugPASXFhgVKLVTL82iJnUVoxKonN7BRNSpn6pG, BySAbkFyF4AUzXU2Vu1bVK8kxvPMXTRdXn8y7bbA7B51, HH9mvTfS1WHTMG9KVDYMv56aV5jt3PGWdx4qnwUCU4nc
+        Log [token.demo000.ft-lockup.testnet]: Transfer 100000000000 from owner.demo000.ft-lockup.testnet to ft-lockup.demo000.ft-lockup.testnet
+Receipt: 435HNAkyVV4xsu9RzByHbzcLUo2XVxaHp68pxjd76Pcp
+        Log [token.demo000.ft-lockup.testnet]: Created new lockup for alice.demo000.ft-lockup.testnet with index 0
+Transaction Id J21gS4jGEp7BTUmRiMXvAs6YL3UhM9T4dvvCeRvX57my
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/J21gS4jGEp7BTUmRiMXvAs6YL3UhM9T4dvvCeRvX57my
+'100000000000'
+LOCKUP CREATED
+View call: ft-lockup.demo000.ft-lockup.testnet.get_account_lockups(
+{
+  "account_id": "alice.demo000.ft-lockup.testnet"
+}
+)
+[
+  [
+    0,
+    {
+      account_id: 'alice.demo000.ft-lockup.testnet',
+      schedule: [
+        { timestamp: 1500000000, balance: '0' },
+        { timestamp: 1600000000, balance: '0' },
+        { timestamp: 1700000000, balance: '100000000000' }
+      ],
+      claimed_balance: '0',
+      termination_config: {
+        terminator_id: 'owner.demo000.ft-lockup.testnet',
+        vesting_schedule: {
+          Schedule: [
+            { timestamp: 1500000000, balance: '0' },
+            { timestamp: 1549999999, balance: '10000000000' },
+            { timestamp: 1550000000, balance: '25000000000' },
+            { timestamp: 1700000000, balance: '100000000000' }
+          ]
+        }
+      },
+      total_balance: '100000000000',
+      unclaimed_balance: '48424386000',
+      timestamp: 1648424386
+    }
+  ]
+]
+CREATING LOCKUP 2 FULLY IN THE PAST
+{ "account_id": "alice.demo000.ft-lockup.testnet", "schedule": [ { "timestamp": 1500000000, "balance": "0000000000" }, { "timestamp": 1600000000, "balance": "100000000000" } ], "claimed_balance": "0", "termination_config": { "terminator_id": "owner.demo000.ft-lockup.testnet", "vesting_schedule": null } }
+Scheduling a call: token.demo000.ft-lockup.testnet.ft_transfer_call(
+{
+  "receiver_id": "ft-lockup.demo000.ft-lockup.testnet",
+  "amount": "100000000000",
+  "msg": "{ \"account_id\": \"alice.demo000.ft-lockup.testnet\", \"schedule\": [ { \"timestamp\": 1500000000, \"balance\": \"0000000000\" }, { \"timestamp\": 1600000000, \"balance\": \"100000000000\" } ], \"claimed_balance\": \"0\", \"termination_config\": { \"terminator_id\": \"owner.demo000.ft-lockup.testnet\", \"vesting_schedule\": null } }"
+}
+) with attached 0.000000000000000000000001 NEAR
+Doing account.functionCall()
+Retrying request to broadcast_tx_commit as it has timed out [
+  'HwAAAG93bmVyLmRlbW8wMDAuZnQtbG9ja3VwLnRlc3RuZXQAgskhLOLj94E2A8TEZMMhHiEQ+f1loSuOGvzjxXP+8LOHMTSLSk4AAB8AAAB0b2tlbi5kZW1vMDAwLmZ0LWxvY2t1cC50ZXN0bmV0pJMFPSn+HMc6JwrKEwCEZ3Ses/3TczPwgtC3qGljvhwBAAAAAhAAAABmdF90cmFuc2Zlcl9jYWxspQEAAHsicmVjZWl2ZXJfaWQiOiJmdC1sb2NrdXAuZGVtbzAwMC5mdC1sb2NrdXAudGVzdG5ldCIsImFtb3VudCI6IjEwMDAwMDAwMDAwMCIsIm1zZyI6InsgXCJhY2NvdW50X2lkXCI6IFwiYWxpY2UuZGVtbzAwMC5mdC1sb2NrdXAudGVzdG5ldFwiLCBcInNjaGVkdWxlXCI6IFsgeyBcInRpbWVzdGFtcFwiOiAxNTAwMDAwMDAwLCBcImJhbGFuY2VcIjogXCIwMDAwMDAwMDAwXCIgfSwgeyBcInRpbWVzdGFtcFwiOiAxNjAwMDAwMDAwLCBcImJhbGFuY2VcIjogXCIxMDAwMDAwMDAwMDBcIiB9IF0sIFwiY2xhaW1lZF9iYWxhbmNlXCI6IFwiMFwiLCBcInRlcm1pbmF0aW9uX2NvbmZpZ1wiOiB7IFwidGVybWluYXRvcl9pZFwiOiBcIm93bmVyLmRlbW8wMDAuZnQtbG9ja3VwLnRlc3RuZXRcIiwgXCJ2ZXN0aW5nX3NjaGVkdWxlXCI6IG51bGwgfSB9In0AwG4x2RABAAEAAAAAAAAAAAAAAAAAAAAA515GSeqjYyhsPdRUwCv7UD1jRC9WKDiFm8rnDcqg83u9qpBlESOlG1jhLUz2CmHmyvKn8z+Rt5kaNpViqBTSCg=='
+]
+Receipts: J8gyXN5wsroKr9rJrc8z7AT2TT87AXypZMjAQBHq9b5P, 4u13fVHEjDfZWuSMSFb1EF9E9LBTXKQXJ9pB19YgRYWc, 5TiGuu7yaQi2nRycNybhCE9cef8o3NU31BkVP2Sb3CK
+        Log [token.demo000.ft-lockup.testnet]: Transfer 100000000000 from owner.demo000.ft-lockup.testnet to ft-lockup.demo000.ft-lockup.testnet
+Receipt: 85RwyWTKBxMeXJYpYFWAssgy9fSASmrqb1RxsGqn4PEk
+        Log [token.demo000.ft-lockup.testnet]: Created new lockup for alice.demo000.ft-lockup.testnet with index 1
+Transaction Id Cxy6kYDcM6qMW3Gjjpt8QTg9WMkNjMK22tJkFkDQfmPp
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/Cxy6kYDcM6qMW3Gjjpt8QTg9WMkNjMK22tJkFkDQfmPp
+'100000000000'
+LOCKUP 2 CREATED
+CREATING LOCKUP 3 FULLY IN THE FUTURE
+{ "account_id": "alice.demo000.ft-lockup.testnet", "schedule": [ { "timestamp": 1700000000, "balance": "0000000000" }, { "timestamp": 1800000000, "balance": "100000000000" } ], "claimed_balance": "0", "termination_config": { "terminator_id": "owner.demo000.ft-lockup.testnet", "vesting_schedule": null } }
+Scheduling a call: token.demo000.ft-lockup.testnet.ft_transfer_call(
+{
+  "receiver_id": "ft-lockup.demo000.ft-lockup.testnet",
+  "amount": "100000000000",
+  "msg": "{ \"account_id\": \"alice.demo000.ft-lockup.testnet\", \"schedule\": [ { \"timestamp\": 1700000000, \"balance\": \"0000000000\" }, { \"timestamp\": 1800000000, \"balance\": \"100000000000\" } ], \"claimed_balance\": \"0\", \"termination_config\": { \"terminator_id\": \"owner.demo000.ft-lockup.testnet\", \"vesting_schedule\": null } }"
+}
+) with attached 0.000000000000000000000001 NEAR
+Doing account.functionCall()
+Receipts: H8VpnQRje6B4GNxYvw5HgXeZJanGEKN3JVKP6neGeCcr, ErFGSuwi4ZVkJsrt9MBNj958c6ZByNq6V8oyY7M4g9WM, 48Ag6Kb7k2tutoVVG3i15yLD4RrFUwWU1oEvKx72kYbQ
+        Log [token.demo000.ft-lockup.testnet]: Transfer 100000000000 from owner.demo000.ft-lockup.testnet to ft-lockup.demo000.ft-lockup.testnet
+Receipt: DwwpQt6L9THBtSjoqpQ4Ku1JtNDzTCpWhCMx4mbWktyv
+        Log [token.demo000.ft-lockup.testnet]: Created new lockup for alice.demo000.ft-lockup.testnet with index 2
+Transaction Id D8S2GNM5bUPiDoto3SRkwtZwpThKfDD37FApsgafaUyk
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/D8S2GNM5bUPiDoto3SRkwtZwpThKfDD37FApsgafaUyk
+'100000000000'
+LOCKUP 3 CREATED
+CREATING LOCKUP FOR BOB
+{ "account_id": "bob.demo000.ft-lockup.testnet", "schedule": [ { "timestamp": 1600000000, "balance": "0000000000" }, { "timestamp": 1700000000, "balance": "100000000000" } ], "claimed_balance": "0", "termination_config": { "terminator_id": "owner.demo000.ft-lockup.testnet", "vesting_schedule": null } }
+Scheduling a call: token.demo000.ft-lockup.testnet.ft_transfer_call(
+{
+  "receiver_id": "ft-lockup.demo000.ft-lockup.testnet",
+  "amount": "100000000000",
+  "msg": "{ \"account_id\": \"bob.demo000.ft-lockup.testnet\", \"schedule\": [ { \"timestamp\": 1600000000, \"balance\": \"0000000000\" }, { \"timestamp\": 1700000000, \"balance\": \"100000000000\" } ], \"claimed_balance\": \"0\", \"termination_config\": { \"terminator_id\": \"owner.demo000.ft-lockup.testnet\", \"vesting_schedule\": null } }"
+}
+) with attached 0.000000000000000000000001 NEAR
+Doing account.functionCall()
+Receipts: DC3hnUwcCJ6Acq8MWxgJ3VFeakH6FWTD413VugcMHAx8, EGPMzNBCsq5sLPqMoJWBrxwzzh84vMi6M1c21KAHZj5F, Fr2LeWNSRJauPq9wadcdFV6xEqxE37hiTEwvXJG2aJ5Y
+        Log [token.demo000.ft-lockup.testnet]: Transfer 100000000000 from owner.demo000.ft-lockup.testnet to ft-lockup.demo000.ft-lockup.testnet
+Receipt: 8YX7bMNYwwEuPRRZCTbbwF9x2728byij8fzrRuTwuAdT
+        Log [token.demo000.ft-lockup.testnet]: Created new lockup for bob.demo000.ft-lockup.testnet with index 3
+Transaction Id 8WYESx8pBcErd9foTSjmVoU8WVjNqcVLPLMa5yGXA7JY
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/8WYESx8pBcErd9foTSjmVoU8WVjNqcVLPLMa5yGXA7JY
+'100000000000'
+LOCKUP FOR BOB CREATED
+CREATING LOCKUP FOR CAROL
+{ "account_id": "carol.demo000.ft-lockup.testnet", "schedule": [ { "timestamp": 1600000000, "balance": "0000000000" }, { "timestamp": 1700000000, "balance": "100000000000" } ], "claimed_balance": "0", "termination_config": { "terminator_id": "owner.demo000.ft-lockup.testnet", "vesting_schedule": null } }
+Scheduling a call: token.demo000.ft-lockup.testnet.ft_transfer_call(
+{
+  "receiver_id": "ft-lockup.demo000.ft-lockup.testnet",
+  "amount": "100000000000",
+  "msg": "{ \"account_id\": \"carol.demo000.ft-lockup.testnet\", \"schedule\": [ { \"timestamp\": 1600000000, \"balance\": \"0000000000\" }, { \"timestamp\": 1700000000, \"balance\": \"100000000000\" } ], \"claimed_balance\": \"0\", \"termination_config\": { \"terminator_id\": \"owner.demo000.ft-lockup.testnet\", \"vesting_schedule\": null } }"
+}
+) with attached 0.000000000000000000000001 NEAR
+Doing account.functionCall()
+Receipts: 4W6nN7agzaiyK5PycYCefHSCYNA2mUDZbmG6b33D3e9A, 82JATCDkkpmudDaHjxa15sPuACnFRHwyznppKWNrRwo, 9nfQnLNQLNbimK71ptCi3FmoeT1hZVjnqdDDrjnsupLi
+        Log [token.demo000.ft-lockup.testnet]: Transfer 100000000000 from owner.demo000.ft-lockup.testnet to ft-lockup.demo000.ft-lockup.testnet
+Receipt: EkcED62TiPi6sA2hRs284xBMhoHHh5Cxsa5c5PyJ1xU9
+        Log [token.demo000.ft-lockup.testnet]: Created new lockup for carol.demo000.ft-lockup.testnet with index 4
+Transaction Id 8PUoFrq4dFgn64JHqoVASWKurgrHXkAWJkTA9VJwB7C5
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/8PUoFrq4dFgn64JHqoVASWKurgrHXkAWJkTA9VJwB7C5
+'100000000000'
+LOCKUP FOR CAROL CREATED
+CLAIMING
+Scheduling a call: ft-lockup.demo000.ft-lockup.testnet.claim({ })
+Doing account.functionCall()
+Receipts: FyN2c1kJKCcoBQECpdA6TjNXJrUqbeSiwcdS3efSe3cc, 6T6bDj9Qxa4AvYwofhHtZpkzSnDPUA6ETfrWrEStUHpW, 4L1FGvsB7rzAUnNB5si4QfXQAZPDVk1ZivgeYDuf3eyz
+        Log [ft-lockup.demo000.ft-lockup.testnet]: Claiming 48424424000 form lockup #0
+        Log [ft-lockup.demo000.ft-lockup.testnet]: Claiming 100000000000 form lockup #1
+        Log [ft-lockup.demo000.ft-lockup.testnet]: Total claim 148424424000
+Receipt: BMuLMvRWPxCfSWxAC8qvxVhJFvnRFNXnrsN5Vb7ZPKKL
+        Log [ft-lockup.demo000.ft-lockup.testnet]: Transfer 148424424000 from ft-lockup.demo000.ft-lockup.testnet to alice.demo000.ft-lockup.testnet
+        Log [ft-lockup.demo000.ft-lockup.testnet]: Memo: Claiming unlocked 148424424000 balance from ft-lockup.demo000.ft-lockup.testnet
+Transaction Id HUwZ8ftiumQp5prXy5amwJj9K9qc3vt63W3b675BiKvp
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/HUwZ8ftiumQp5prXy5amwJj9K9qc3vt63W3b675BiKvp
+'148424424000'
+CLAIMED FT BALANCE
+Scheduling a call: token.demo000.ft-lockup.testnet.ft_balance_of({ "account_id": "alice.demo000.ft-lockup.testnet" })
+Doing account.functionCall()
+Retrying request to broadcast_tx_commit as it has timed out [
+  'HwAAAG93bmVyLmRlbW8wMDAuZnQtbG9ja3VwLnRlc3RuZXQAgskhLOLj94E2A8TEZMMhHiEQ+f1loSuOGvzjxXP+8LOLMTSLSk4AAB8AAAB0b2tlbi5kZW1vMDAwLmZ0LWxvY2t1cC50ZXN0bmV0i0jhqS1QgVnnzt2PYsrFm9mKPsv/WUcA7cU6irlfg1wBAAAAAg0AAABmdF9iYWxhbmNlX29mMAAAAHsiYWNjb3VudF9pZCI6ImFsaWNlLmRlbW8wMDAuZnQtbG9ja3VwLnRlc3RuZXQifQDgV+tIGwAAAAAAAAAAAAAAAAAAAAAAAAArbS9sHXXms9haBWoNL7syPwS9S26t/jvn4+Nbh/ogoVKigmeOwkVRjC+plYwX6DJTJl+LbH8cuIEZrRlYudcI'
+]
+Transaction Id h78aevwjbe69Fk17KaXdXfj8cKGpo3BYFC5FK5XW12o
+To see the transaction in the transaction explorer, please open this url in your browser
+https://explorer.testnet.near.org/transactions/h78aevwjbe69Fk17KaXdXfj8cKGpo3BYFC5FK5XW12o
+'148424424000'
+CHECKING ALL LOCKUPS
+View call: ft-lockup.demo000.ft-lockup.testnet.get_lockups_paged({})
+[
+  [
+    0,
+    {
+      account_id: 'alice.demo000.ft-lockup.testnet',
+      schedule: [
+        { timestamp: 1500000000, balance: '0' },
+        { timestamp: 1600000000, balance: '0' },
+        { timestamp: 1700000000, balance: '100000000000' }
+      ],
+      claimed_balance: '48424424000',
+      termination_config: {
+        terminator_id: 'owner.demo000.ft-lockup.testnet',
+        vesting_schedule: {
+          Schedule: [
+            { timestamp: 1500000000, balance: '0' },
+            { timestamp: 1549999999, balance: '10000000000' },
+            { timestamp: 1550000000, balance: '25000000000' },
+            { timestamp: 1700000000, balance: '100000000000' }
+          ]
+        }
+      },
+      total_balance: '100000000000',
+      unclaimed_balance: '15000',
+      timestamp: 1648424439
+    }
+  ],
+  [
+    1,
+    {
+      account_id: 'alice.demo000.ft-lockup.testnet',
+      schedule: [
+        { timestamp: 1500000000, balance: '0' },
+        { timestamp: 1600000000, balance: '100000000000' }
+      ],
+      claimed_balance: '100000000000',
+      termination_config: {
+        terminator_id: 'owner.demo000.ft-lockup.testnet',
+        vesting_schedule: null
+      },
+      total_balance: '100000000000',
+      unclaimed_balance: '0',
+      timestamp: 1648424439
+    }
+  ],
+  [
+    2,
+    {
+      account_id: 'alice.demo000.ft-lockup.testnet',
+      schedule: [
+        { timestamp: 1700000000, balance: '0' },
+        { timestamp: 1800000000, balance: '100000000000' }
+      ],
+      claimed_balance: '0',
+      termination_config: {
+        terminator_id: 'owner.demo000.ft-lockup.testnet',
+        vesting_schedule: null
+      },
+      total_balance: '100000000000',
+      unclaimed_balance: '0',
+      timestamp: 1648424439
+    }
+  ],
+  [
+    3,
+    {
+      account_id: 'bob.demo000.ft-lockup.testnet',
+      schedule: [
+        { timestamp: 1600000000, balance: '0' },
+        { timestamp: 1700000000, balance: '100000000000' }
+      ],
+      claimed_balance: '0',
+      termination_config: {
+        terminator_id: 'owner.demo000.ft-lockup.testnet',
+        vesting_schedule: null
+      },
+      total_balance: '100000000000',
+      unclaimed_balance: '48424439000',
+      timestamp: 1648424439
+    }
+  ],
+  [
+    4,
+    {
+      account_id: 'carol.demo000.ft-lockup.testnet',
+      schedule: [
+        { timestamp: 1600000000, balance: '0' },
+        { timestamp: 1700000000, balance: '100000000000' }
+      ],
+      claimed_balance: '0',
+      termination_config: {
+        terminator_id: 'owner.demo000.ft-lockup.testnet',
+        vesting_schedule: null
+      },
+      total_balance: '100000000000',
+      unclaimed_balance: '48424439000',
+      timestamp: 1648424439
+    }
+  ]
+]
+FINISH
