@@ -1,3 +1,5 @@
+use std::convert::TryInto;
+
 use near_contract_standards::fungible_token::core_impl::ext_fungible_token;
 use near_contract_standards::fungible_token::receiver::FungibleTokenReceiver;
 use near_sdk::borsh::maybestd::collections::HashSet;
@@ -207,5 +209,10 @@ impl Contract {
         assert_one_yocto();
         self.assert_deposit_whitelist(&env::predecessor_account_id());
         self.deposit_whitelist.remove(account_id.as_ref());
+    }
+
+    pub fn new_draft_group(&mut self) -> DraftGroupIndex {
+        self.draft_groups.push(&DraftGroup::new());
+        (self.draft_groups.len() - 1).try_into().unwrap()
     }
 }

@@ -1387,3 +1387,17 @@ fn test_get_token_account_id() {
     let result = e.get_token_account_id();
     assert_eq!(result, e.token.valid_account_id());
 }
+
+#[test]
+fn test_new_draft_group() {
+    let e = Env::init(None);
+    let users = Users::init(&e);
+    e.set_time_sec(GENESIS_TIMESTAMP_SEC);
+
+    let index = e.new_draft_group(&e.owner);
+    assert_eq!(index, 0);
+    let index = e.new_draft_group(&e.owner);
+    assert_eq!(index, 1);
+    let index = e.new_draft_group(&e.owner);
+    assert_eq!(index, 2);
+}
