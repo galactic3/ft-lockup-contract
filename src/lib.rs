@@ -12,6 +12,7 @@ use near_sdk::{
 };
 
 pub mod callbacks;
+pub mod draft;
 pub mod ft_token_receiver;
 pub mod internal;
 pub mod lockup;
@@ -20,6 +21,7 @@ pub mod termination;
 pub mod util;
 pub mod view;
 
+use crate::draft::*;
 use crate::lockup::*;
 use crate::schedule::*;
 use crate::termination::*;
@@ -66,6 +68,9 @@ pub struct Contract {
 
     /// Account IDs that can create new lockups.
     pub deposit_whitelist: UnorderedSet<AccountId>,
+
+    pub drafts: Vector<Draft>,
+    pub draft_groups: Vector<DraftGroup>,
 }
 
 #[derive(BorshStorageKey, BorshSerialize)]
@@ -73,6 +78,8 @@ pub(crate) enum StorageKey {
     Lockups,
     AccountLockups,
     DepositWhitelist,
+    Drafts,
+    DraftGroups,
 }
 
 #[near_bindgen]
@@ -86,6 +93,8 @@ impl Contract {
             account_lockups: LookupMap::new(StorageKey::AccountLockups),
             token_account_id: token_account_id.into(),
             deposit_whitelist: deposit_whitelist_set,
+            drafts: Vector::new(StorageKey::Drafts),
+            draft_groups: Vector::new(StorageKey::DraftGroups),
         }
     }
 
