@@ -215,4 +215,24 @@ impl Contract {
         self.draft_groups.push(&DraftGroup::new());
         (self.draft_groups.len() - 1).try_into().unwrap()
     }
+
+    pub fn new_draft(&mut self, draft: Draft) -> DraftIndex {
+        // draft is valid
+        let amount = draft.lockup.schedule.total_balance();
+        draft.lockup.assert_new_valid(amount);
+        let index: DraftIndex = self.drafts.len().try_into().unwrap();
+        self.drafts.push(&draft);
+
+        // draft group exists
+        // TODO: add check that group is not yet funded
+        let draft_group_id: u64 = draft.draft_group_id.into();
+        let mut draft_group = self
+            .draft_groups
+            .get(draft_group_id)
+            .expect("draft group not found");
+        draft_group.draft_indices.insert(index);
+        self.draft_groups.replace(draft_group_id, &draft_group);
+
+        index
+    }
 }

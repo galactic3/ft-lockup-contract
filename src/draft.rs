@@ -3,7 +3,9 @@ use crate::*;
 pub type DraftGroupIndex = u32;
 pub type DraftIndex = u32;
 
-#[derive(BorshDeserialize, BorshSerialize)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize)]
+#[cfg_attr(not(target_arch = "wasm32"), derive(Clone))]
+#[serde(crate = "near_sdk::serde")]
 pub struct Draft {
     pub draft_group_id: DraftGroupIndex,
     pub lockup: Lockup,

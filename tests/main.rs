@@ -1428,3 +1428,29 @@ fn test_view_draft_groups() {
     assert_eq!(result[0].0, 1);
     assert_eq!(result[0].1.num_drafts, 0);
 }
+
+#[test]
+fn test_new_draft() {
+    let e = Env::init(None);
+    let users = Users::init(&e);
+    e.set_time_sec(GENESIS_TIMESTAMP_SEC);
+
+    let amount = d(60000, TOKEN_DECIMALS);
+    let lockup = Lockup::new_unlocked(users.alice.account_id, amount);
+    let draft_group_id = 0;
+    let draft = Draft { draft_group_id, lockup };
+
+    let res = e.new_draft(&e.owner, &draft);
+    assert!(!res.is_ok());
+    assert!(format!("{:?}", res.status()).contains("draft group not found"));
+
+    e.new_draft_group(&e.owner);
+
+    let res = e.new_draft(&e.owner, &draft);
+    assert!(res.is_ok());
+    let res: DraftGroupIndex = res.unwrap_json();
+    assert_eq!(res, 0);
+
+    let result = e.get_draft_group(0).unwrap();
+    assert_eq!(result.num_drafts, 1);
+}
