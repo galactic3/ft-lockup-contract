@@ -5,6 +5,7 @@ pub type DraftIndex = u32;
 
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct Draft {
+    pub draft_group_id: DraftGroupIndex,
     pub lockup: Lockup,
 }
 
