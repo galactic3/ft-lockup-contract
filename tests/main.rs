@@ -1401,3 +1401,30 @@ fn test_new_draft_group() {
     let index = e.new_draft_group(&e.owner);
     assert_eq!(index, 2);
 }
+
+#[test]
+fn test_view_draft_groups() {
+    let e = Env::init(None);
+    e.set_time_sec(GENESIS_TIMESTAMP_SEC);
+
+    e.new_draft_group(&e.owner);
+    e.new_draft_group(&e.owner);
+    e.new_draft_group(&e.owner);
+
+    let result = e.get_draft_group(2);
+    assert!(result.is_some());
+    assert_eq!(result.unwrap().num_drafts, 0);
+    let result = e.get_draft_group(3);
+    assert!(result.is_none());
+
+    let result = e.get_draft_groups_paged(None, None);
+    assert_eq!(result.len(), 3);
+    assert_eq!(result[0].0, 0);
+    assert_eq!(result[1].0, 1);
+    assert_eq!(result[2].0, 2);
+
+    let result = e.get_draft_groups_paged(Some(1), Some(2));
+    assert_eq!(result.len(), 1);
+    assert_eq!(result[0].0, 1);
+    assert_eq!(result[0].1.num_drafts, 0);
+}

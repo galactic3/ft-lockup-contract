@@ -10,7 +10,7 @@ use near_sdk_sim::{
 pub use ft_lockup::draft::DraftGroupIndex;
 pub use ft_lockup::lockup::{Lockup, LockupIndex};
 pub use ft_lockup::schedule::Schedule;
-use ft_lockup::view::LockupView;
+use ft_lockup::view::{DraftGroupView, LockupView};
 pub use ft_lockup::{ContractContract as FtLockupContract, TimestampSec};
 
 near_sdk_sim::lazy_static_include::lazy_static_include_bytes! {
@@ -285,6 +285,26 @@ impl Env {
                 total_balance,
                 termination_schedule.map(|x| x.clone()),
             ))
+    }
+
+    pub fn get_draft_group(&self, index: DraftGroupIndex) -> Option<DraftGroupView> {
+        self.near
+            .view_method_call(self.contract.contract.get_draft_group(index))
+            .unwrap_json()
+    }
+
+    pub fn get_draft_groups_paged(
+        &self,
+        from_index: Option<DraftGroupIndex>,
+        to_index: Option<DraftGroupIndex>,
+    ) -> Vec<(DraftGroupIndex, DraftGroupView)> {
+        self.near
+            .view_method_call(
+                self.contract
+                    .contract
+                    .get_draft_groups_paged(from_index, to_index),
+            )
+            .unwrap_json()
     }
 
     pub fn get_account_lockups(&self, user: &UserAccount) -> Vec<(LockupIndex, LockupView)> {

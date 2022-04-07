@@ -46,6 +46,21 @@ impl From<Lockup> for LockupView {
     }
 }
 
+#[derive(Serialize)]
+#[serde(crate = "near_sdk::serde")]
+#[cfg_attr(not(target_arch = "wasm32"), derive(Debug, PartialEq, Deserialize))]
+pub struct DraftGroupView {
+    pub num_drafts: u32,
+}
+
+impl From<DraftGroup> for DraftGroupView {
+    fn from(draft_group: DraftGroup) -> Self {
+        Self {
+            num_drafts: draft_group.draft_indices.len().try_into().unwrap(),
+        }
+    }
+}
+
 #[near_bindgen]
 impl Contract {
     pub fn get_token_account_id(&self) -> ValidAccountId {
@@ -108,5 +123,21 @@ impl Contract {
             termination_schedule.assert_valid(total_balance.0);
             schedule.assert_valid_termination_schedule(&termination_schedule);
         }
+    }
+
+    pub fn get_draft_group(&self, index: DraftGroupIndex) -> Option<DraftGroupView> {
+        self.draft_groups.get(index as _).map(|group| group.into())
+    }
+
+    pub fn get_draft_groups_paged(
+        &self,
+        from_index: Option<DraftGroupIndex>,
+        to_index: Option<DraftGroupIndex>,
+    ) -> Vec<(DraftGroupIndex, DraftGroupView)> {
+        let from_index = from_index.unwrap_or(0);
+        let to_index = to_index.unwrap_or(self.draft_groups.len() as _);
+        (from_index..std::cmp::min(self.draft_groups.len() as _, to_index))
+            .filter_map(|index| self.get_draft_group(index).map(|group| (index, group)))
+            .collect()
     }
 }
