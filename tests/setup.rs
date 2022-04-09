@@ -7,7 +7,7 @@ use near_sdk_sim::{
     deploy, init_simulator, to_yocto, ContractAccount, ExecutionResult, UserAccount, ViewResult,
 };
 
-pub use ft_lockup::draft::{Draft, DraftGroupIndex};
+pub use ft_lockup::draft::{Draft, DraftIndex, DraftGroupIndex};
 use ft_lockup::ft_token_receiver::DraftGroupConfirmation;
 pub use ft_lockup::lockup::{Lockup, LockupIndex};
 pub use ft_lockup::schedule::Schedule;
@@ -267,6 +267,14 @@ impl Env {
     pub fn new_draft(&self, user: &UserAccount, draft: &Draft) -> ExecutionResult {
         user.function_call(
             self.contract.contract.new_draft(draft.clone()),
+            DEFAULT_GAS,
+            0,
+        )
+    }
+
+    pub fn convert_draft(&self, user: &UserAccount, draft_id: DraftIndex) -> ExecutionResult {
+        user.function_call(
+            self.contract.contract.convert_draft(draft_id),
             DEFAULT_GAS,
             0,
         )

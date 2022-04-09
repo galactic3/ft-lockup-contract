@@ -1512,3 +1512,41 @@ fn test_fund_draft_group() {
     assert!(!res.is_ok());
     assert!(format!("{:?}", res.status()).contains("group already funded"));
 }
+
+#[test]
+fn test_convert_draft() {
+    let e = Env::init(None);
+    let users = Users::init(&e);
+    e.set_time_sec(GENESIS_TIMESTAMP_SEC);
+
+    let amount = d(60000, TOKEN_DECIMALS);
+    let lockup = Lockup::new_unlocked(users.alice.account_id.clone(), amount);
+    let draft_group_id = 0;
+    let draft = Draft { draft_group_id, lockup_id: None, lockup };
+
+    e.new_draft_group(&e.owner);
+
+    // create draft 0
+    let res = e.new_draft(&e.owner, &draft);
+    assert!(res.is_ok());
+
+    // try convert before fund
+    let res = e.convert_draft(&users.bob, 0);
+    assert!(!res.is_ok());
+    assert!(format!("{:?}", res.status()).contains("not funded group"));
+
+    // fund draft group
+    let res = e.fund_draft_group(&e.owner, amount, 0);
+    let balance: WrappedBalance = res.unwrap_json();
+    assert_eq!(balance.0, amount);
+
+    // convert by anonymous
+    let res = e.convert_draft(&users.bob, 0);
+    assert!(res.is_ok());
+    // TODO: check that lockup_id is updated
+
+    // try to convert again
+    let res = e.convert_draft(&users.bob, 0);
+    assert!(!res.is_ok());
+    assert!(format!("{:?}", res.status()).contains("draft already converted"));
+}
