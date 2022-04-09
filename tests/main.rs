@@ -1446,11 +1446,20 @@ fn test_new_draft() {
 
     e.new_draft_group(&e.owner);
 
+    // create draft 0
     let res = e.new_draft(&e.owner, &draft);
     assert!(res.is_ok());
     let res: DraftGroupIndex = res.unwrap_json();
     assert_eq!(res, 0);
 
-    let result = e.get_draft_group(0).unwrap();
-    assert_eq!(result.num_drafts, 1);
+    // create draft 1
+    let res = e.new_draft(&e.owner, &draft);
+    assert!(res.is_ok());
+    let res: DraftGroupIndex = res.unwrap_json();
+    assert_eq!(res, 1);
+
+    // check draft group
+    let res = e.get_draft_group(0).unwrap();
+    assert_eq!(res.num_drafts, 2);
+    assert_eq!(res.total_amount, amount * 2);
 }

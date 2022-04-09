@@ -50,12 +50,16 @@ impl From<Lockup> for LockupView {
 #[serde(crate = "near_sdk::serde")]
 #[cfg_attr(not(target_arch = "wasm32"), derive(Debug, PartialEq, Deserialize))]
 pub struct DraftGroupView {
+    #[serde(default)]
+    #[serde(with = "u128_dec_format")]
+    pub total_amount: Balance,
     pub num_drafts: u32,
 }
 
 impl From<DraftGroup> for DraftGroupView {
     fn from(draft_group: DraftGroup) -> Self {
         Self {
+            total_amount: draft_group.total_amount,
             num_drafts: draft_group.draft_indices.len().try_into().unwrap(),
         }
     }

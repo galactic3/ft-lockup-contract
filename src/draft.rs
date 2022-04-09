@@ -13,12 +13,14 @@ pub struct Draft {
 
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct DraftGroup {
+    pub total_amount: Balance,
     pub draft_indices: HashSet<DraftIndex>,
 }
 
 impl DraftGroup {
     pub fn new() -> Self {
         Self {
+            total_amount: 0,
             draft_indices: HashSet::new(),
         }
     }
