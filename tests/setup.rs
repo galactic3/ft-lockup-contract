@@ -360,6 +360,12 @@ impl Env {
             .unwrap_json()
     }
 
+    pub fn get_drafts(&self, indices: Vec<DraftIndex>) -> Vec<(DraftIndex, DraftView)> {
+        self.near
+            .view_method_call(self.contract.contract.get_drafts(indices))
+            .unwrap_json()
+    }
+
     pub fn get_account_lockups(&self, user: &UserAccount) -> Vec<(LockupIndex, LockupView)> {
         self.near
             .view_method_call(
