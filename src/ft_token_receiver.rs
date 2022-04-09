@@ -30,7 +30,7 @@ impl FungibleTokenReceiver for Contract {
                 lockup.account_id.as_ref(),
                 index
             );
-            return PromiseOrValue::Value(0.into())
+            return PromiseOrValue::Value(0.into());
         }
         let confirmation: Result<DraftGroupConfirmation, _> = serde_json::from_str(&msg);
         if let Ok(confirmation) = confirmation {
@@ -40,8 +40,7 @@ impl FungibleTokenReceiver for Contract {
                 .get(draft_group_id as _)
                 .expect("draft group not found");
             assert_eq!(
-                draft_group.total_amount,
-                amount,
+                draft_group.total_amount, amount,
                 "The draft group total balance doesn't match the transferred balance",
             );
             // panic!("mark0");
@@ -49,7 +48,7 @@ impl FungibleTokenReceiver for Contract {
             draft_group.funded = true;
             self.draft_groups.replace(draft_group_id as _, &draft_group);
             log!("Funded draft group {}", draft_group_id);
-            return PromiseOrValue::Value(0.into())
+            return PromiseOrValue::Value(0.into());
         }
 
         panic!("Expected Lockup or DraftGroupConfirmation as msg");

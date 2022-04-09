@@ -251,7 +251,9 @@ impl Contract {
         let index = self.internal_add_lockup(&draft.lockup);
         log!(
             "Created new lockup for {} with index {} from draft {}",
-            draft.lockup.account_id.as_ref(), index, draft_id,
+            draft.lockup.account_id.as_ref(),
+            index,
+            draft_id,
         );
 
         draft.lockup_id = Some(index);

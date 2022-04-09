@@ -7,7 +7,7 @@ use near_sdk_sim::{
     deploy, init_simulator, to_yocto, ContractAccount, ExecutionResult, UserAccount, ViewResult,
 };
 
-pub use ft_lockup::draft::{Draft, DraftIndex, DraftGroupIndex};
+pub use ft_lockup::draft::{Draft, DraftGroupIndex, DraftIndex};
 use ft_lockup::ft_token_receiver::DraftGroupConfirmation;
 pub use ft_lockup::lockup::{Lockup, LockupIndex};
 pub use ft_lockup::schedule::Schedule;

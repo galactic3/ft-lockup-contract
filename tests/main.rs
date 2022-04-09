@@ -1438,7 +1438,11 @@ fn test_new_draft() {
     let amount = d(60000, TOKEN_DECIMALS);
     let lockup = Lockup::new_unlocked(users.alice.account_id, amount);
     let draft_group_id = 0;
-    let draft = Draft { draft_group_id, lockup_id: None, lockup };
+    let draft = Draft {
+        draft_group_id,
+        lockup_id: None,
+        lockup,
+    };
 
     let res = e.new_draft(&e.owner, &draft);
     assert!(!res.is_ok());
@@ -1473,7 +1477,11 @@ fn test_fund_draft_group() {
     let amount = d(60000, TOKEN_DECIMALS);
     let lockup = Lockup::new_unlocked(users.alice.account_id.clone(), amount);
     let draft_group_id = 0;
-    let draft = Draft { draft_group_id, lockup_id: None, lockup };
+    let draft = Draft {
+        draft_group_id,
+        lockup_id: None,
+        lockup,
+    };
 
     e.new_draft_group(&e.owner);
 
@@ -1522,7 +1530,11 @@ fn test_convert_draft() {
     let amount = d(60000, TOKEN_DECIMALS);
     let lockup = Lockup::new_unlocked(users.alice.account_id.clone(), amount);
     let draft_group_id = 0;
-    let draft = Draft { draft_group_id, lockup_id: None, lockup };
+    let draft = Draft {
+        draft_group_id,
+        lockup_id: None,
+        lockup,
+    };
 
     e.new_draft_group(&e.owner);
 
@@ -1562,7 +1574,11 @@ fn test_view_drafts() {
     let amount = d(60000, TOKEN_DECIMALS);
     let lockup = Lockup::new_unlocked(users.alice.account_id.clone(), amount);
     let draft_group_id = 0;
-    let draft = Draft { draft_group_id, lockup_id: None, lockup };
+    let draft = Draft {
+        draft_group_id,
+        lockup_id: None,
+        lockup,
+    };
 
     e.new_draft_group(&e.owner);
     e.new_draft(&e.owner, &draft);
@@ -1590,4 +1606,36 @@ fn test_view_drafts() {
     assert_eq!(draft.draft_group_id, 0);
     assert_eq!(draft.lockup_id, Some(0));
     assert_eq!(draft.lockup.total_balance, amount);
+}
+
+#[test]
+fn test_create_via_draft_and_claim() {
+    let e = Env::init(None);
+    let users = Users::init(&e);
+    e.set_time_sec(GENESIS_TIMESTAMP_SEC);
+
+    let amount = d(60000, TOKEN_DECIMALS);
+    let lockup = Lockup::new_unlocked(users.alice.account_id.clone(), amount);
+    let draft_group_id = 0;
+    let draft = Draft {
+        draft_group_id,
+        lockup_id: None,
+        lockup,
+    };
+
+    e.new_draft_group(&e.owner);
+    e.new_draft(&e.owner, &draft);
+
+    // fund draft group
+    let res = e.fund_draft_group(&e.owner, amount, 0);
+    let balance: WrappedBalance = res.unwrap_json();
+    assert_eq!(balance.0, amount);
+    let res = e.convert_draft(&users.bob, 0);
+    assert!(res.is_ok());
+
+    ft_storage_deposit(&users.alice, TOKEN_ID, &users.alice.account_id);
+    let res: WrappedBalance = e.claim(&users.alice).unwrap_json();
+    assert_eq!(res.0, amount);
+    let balance = e.ft_balance_of(&users.alice);
+    assert_eq!(balance, amount);
 }
