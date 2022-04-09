@@ -1391,7 +1391,6 @@ fn test_get_token_account_id() {
 #[test]
 fn test_new_draft_group() {
     let e = Env::init(None);
-    let users = Users::init(&e);
     e.set_time_sec(GENESIS_TIMESTAMP_SEC);
 
     let index = e.new_draft_group(&e.owner);
@@ -1493,7 +1492,7 @@ fn test_fund_draft_group() {
     assert!(res.is_ok());
 
     ft_storage_deposit(&e.owner, TOKEN_ID, &users.alice.account_id);
-    let result = e.ft_transfer(&e.owner, amount * 2, &users.alice);
+    e.ft_transfer(&e.owner, amount * 2, &users.alice);
 
     // fund with not authorized account
     let res = e.fund_draft_group(&users.alice, amount * 2, 0);
