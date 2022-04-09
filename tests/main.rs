@@ -1463,3 +1463,47 @@ fn test_new_draft() {
     assert_eq!(res.num_drafts, 2);
     assert_eq!(res.total_amount, amount * 2);
 }
+
+#[test]
+fn test_fund_draft_group() {
+    let e = Env::init(None);
+    let users = Users::init(&e);
+    e.set_time_sec(GENESIS_TIMESTAMP_SEC);
+
+    let amount = d(60000, TOKEN_DECIMALS);
+    let lockup = Lockup::new_unlocked(users.alice.account_id.clone(), amount);
+    let draft_group_id = 0;
+    let draft = Draft { draft_group_id, lockup };
+
+    e.new_draft_group(&e.owner);
+
+    // create draft 0
+    let res = e.new_draft(&e.owner, &draft);
+    assert!(res.is_ok());
+    // create draft 1
+    let res = e.new_draft(&e.owner, &draft);
+    assert!(res.is_ok());
+
+    ft_storage_deposit(&e.owner, TOKEN_ID, &users.alice.account_id);
+    let result = e.ft_transfer(&e.owner, amount * 2, &users.alice);
+
+    // fund with not authorized account
+    let res = e.fund_draft_group(&users.alice, amount * 2, 0);
+    assert!(res.logs()[0].contains("Refund"));
+    let balance: WrappedBalance = res.unwrap_json();
+    assert_eq!(balance.0, 0);
+
+    // fund draft group
+    let res = e.fund_draft_group(&e.owner, amount * 2, 0);
+    let balance: WrappedBalance = res.unwrap_json();
+    assert_eq!(balance.0, amount * 2);
+
+    let res = e.get_draft_group(0).unwrap();
+    assert_eq!(res.funded, true, "expected draft group to be funded");
+
+    // fund again, should fail
+    let res = e.fund_draft_group(&e.owner, amount * 2, 0);
+    assert!(res.logs()[0].contains("Refund"));
+    let balance: WrappedBalance = res.unwrap_json();
+    assert_eq!(balance.0, 0);
+}
