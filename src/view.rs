@@ -67,6 +67,25 @@ impl From<DraftGroup> for DraftGroupView {
     }
 }
 
+#[derive(Serialize)]
+#[serde(crate = "near_sdk::serde")]
+#[cfg_attr(not(target_arch = "wasm32"), derive(Debug, PartialEq, Deserialize))]
+pub struct DraftView {
+    pub draft_group_id: DraftGroupIndex,
+    pub lockup_id: Option<LockupIndex>,
+    pub lockup: LockupView,
+}
+
+impl From<Draft> for DraftView {
+    fn from(draft: Draft) -> Self {
+        Self {
+            draft_group_id: draft.draft_group_id,
+            lockup_id: draft.lockup_id,
+            lockup: draft.lockup.into(),
+        }
+    }
+}
+
 #[near_bindgen]
 impl Contract {
     pub fn get_token_account_id(&self) -> ValidAccountId {
@@ -145,5 +164,9 @@ impl Contract {
         (from_index..std::cmp::min(self.draft_groups.len() as _, to_index))
             .filter_map(|index| self.get_draft_group(index).map(|group| (index, group)))
             .collect()
+    }
+
+    pub fn get_draft(&self, index: DraftIndex) -> Option<DraftView> {
+        self.drafts.get(index as _).map(|draft| draft.into())
     }
 }

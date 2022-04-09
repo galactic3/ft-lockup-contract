@@ -1543,7 +1543,9 @@ fn test_convert_draft() {
     // convert by anonymous
     let res = e.convert_draft(&users.bob, 0);
     assert!(res.is_ok());
-    // TODO: check that lockup_id is updated
+
+    let res = e.get_draft(0).unwrap();
+    assert_eq!(res.lockup_id, Some(0), "expected lockup_id to be set");
 
     // try to convert again
     let res = e.convert_draft(&users.bob, 0);

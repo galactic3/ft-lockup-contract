@@ -11,7 +11,7 @@ pub use ft_lockup::draft::{Draft, DraftIndex, DraftGroupIndex};
 use ft_lockup::ft_token_receiver::DraftGroupConfirmation;
 pub use ft_lockup::lockup::{Lockup, LockupIndex};
 pub use ft_lockup::schedule::Schedule;
-use ft_lockup::view::{DraftGroupView, LockupView};
+use ft_lockup::view::{DraftGroupView, DraftView, LockupView};
 pub use ft_lockup::{ContractContract as FtLockupContract, TimestampSec};
 
 near_sdk_sim::lazy_static_include::lazy_static_include_bytes! {
@@ -351,6 +351,12 @@ impl Env {
                     .contract
                     .get_draft_groups_paged(from_index, to_index),
             )
+            .unwrap_json()
+    }
+
+    pub fn get_draft(&self, index: DraftIndex) -> Option<DraftView> {
+        self.near
+            .view_method_call(self.contract.contract.get_draft(index))
             .unwrap_json()
     }
 
