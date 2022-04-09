@@ -230,6 +230,7 @@ impl Contract {
             .draft_groups
             .get(draft_group_id)
             .expect("draft group not found");
+        draft_group.assert_can_add_draft();
         draft_group.total_amount += amount;
         draft_group.draft_indices.insert(index);
         self.draft_groups.replace(draft_group_id, &draft_group);

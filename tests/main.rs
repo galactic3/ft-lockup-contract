@@ -1506,4 +1506,9 @@ fn test_fund_draft_group() {
     assert!(res.logs()[0].contains("Refund"));
     let balance: WrappedBalance = res.unwrap_json();
     assert_eq!(balance.0, 0);
+
+    // add draft after funding
+    let res = e.new_draft(&e.owner, &draft);
+    assert!(!res.is_ok());
+    assert!(format!("{:?}", res.status()).contains("group already funded"));
 }

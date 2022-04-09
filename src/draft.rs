@@ -26,4 +26,8 @@ impl DraftGroup {
             draft_indices: HashSet::new(),
         }
     }
+
+    pub fn assert_can_add_draft(&self) {
+        assert!(!self.funded, "cannot add draft, group already funded");
+    }
 }
