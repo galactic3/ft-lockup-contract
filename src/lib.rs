@@ -217,9 +217,7 @@ impl Contract {
     }
 
     pub fn new_draft(&mut self, draft: Draft) -> DraftIndex {
-        // draft is valid
-        let amount = draft.lockup.schedule.total_balance();
-        draft.lockup.assert_new_valid(amount);
+        draft.assert_new_valid();
         let index: DraftIndex = self.drafts.len().try_into().unwrap();
         self.drafts.push(&draft);
 
@@ -231,7 +229,7 @@ impl Contract {
             .get(draft_group_id)
             .expect("draft group not found");
         draft_group.assert_can_add_draft();
-        draft_group.total_amount += amount;
+        draft_group.total_amount += draft.lockup.schedule.total_balance();
         draft_group.draft_indices.insert(index);
         self.draft_groups.replace(draft_group_id, &draft_group);
 
