@@ -266,4 +266,11 @@ impl Contract {
 
         index
     }
+
+    pub fn convert_drafts(&mut self, draft_ids: Vec<DraftIndex>) -> Vec<LockupIndex> {
+        draft_ids
+            .into_iter()
+            .map(|draft_id| self.convert_draft(draft_id))
+            .collect()
+    }
 }

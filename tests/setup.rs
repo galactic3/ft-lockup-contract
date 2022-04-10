@@ -287,6 +287,18 @@ impl Env {
         )
     }
 
+    pub fn convert_drafts(
+        &self,
+        user: &UserAccount,
+        draft_ids: &Vec<DraftIndex>,
+    ) -> ExecutionResult {
+        user.function_call(
+            self.contract.contract.convert_drafts(draft_ids.clone()),
+            DEFAULT_GAS,
+            0,
+        )
+    }
+
     pub fn get_num_lockups(&self) -> u32 {
         self.near
             .view_method_call(self.contract.contract.get_num_lockups())
