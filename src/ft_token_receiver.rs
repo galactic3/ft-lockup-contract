@@ -43,7 +43,6 @@ impl FungibleTokenReceiver for Contract {
                 draft_group.total_amount, amount,
                 "The draft group total balance doesn't match the transferred balance",
             );
-            // panic!("mark0");
             assert!(!draft_group.funded, "draft group already funded");
             draft_group.funded = true;
             self.draft_groups.replace(draft_group_id as _, &draft_group);
