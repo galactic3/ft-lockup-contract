@@ -5,7 +5,7 @@ pushd "$(dirname $0)"
 # Removing rlib for contract building
 perl -i -pe 's/\["cdylib", "rlib"\]/\["cdylib"\]/' Cargo.toml
 
-RUSTFLAGS='-C link-arg=-s' cargo build --target wasm32-unknown-unknown --release
+RUSTFLAGS="-C link-arg=-s --remap-path-prefix ${CARGO_HOME:-$HOME/.cargo}=/usr/local/cargo" cargo build --target wasm32-unknown-unknown --release
 mkdir -p ./res
 cp target/wasm32-unknown-unknown/release/ft_lockup.wasm ./res/
 
