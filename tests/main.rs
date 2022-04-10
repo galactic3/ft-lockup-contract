@@ -1514,6 +1514,12 @@ fn test_fund_draft_group() {
     let balance: WrappedBalance = res.unwrap_json();
     assert_eq!(balance.0, 0);
 
+    // fund with wrong amount
+    let res = e.fund_draft_group(&e.owner, amount, 0);
+    assert!(res.logs()[0].contains("Refund"));
+    let balance: WrappedBalance = res.unwrap_json();
+    assert_eq!(balance.0, 0);
+
     // fund draft group
     let res = e.fund_draft_group(&e.owner, amount * 2, 0);
     let balance: WrappedBalance = res.unwrap_json();
