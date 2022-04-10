@@ -19,6 +19,10 @@ impl Draft {
         let amount = self.lockup.schedule.total_balance();
         self.lockup.assert_new_valid(amount);
     }
+
+    pub fn assert_can_convert(&self) {
+        assert!(self.lockup_id.is_none(), "draft already converted");
+    }
 }
 
 #[derive(BorshDeserialize, BorshSerialize)]
@@ -39,5 +43,12 @@ impl DraftGroup {
 
     pub fn assert_can_add_draft(&self) {
         assert!(!self.funded, "cannot add draft, group already funded");
+    }
+
+    pub fn assert_can_convert(&self) {
+        assert!(
+            self.funded,
+            "cannot convert draft from not funded group",
+        );
     }
 }

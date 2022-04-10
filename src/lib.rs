@@ -240,15 +240,12 @@ impl Contract {
 
     pub fn convert_draft(&mut self, draft_id: DraftIndex) -> LockupIndex {
         let mut draft = self.drafts.get(draft_id as _).expect("draft not found");
-        assert!(draft.lockup_id.is_none(), "draft already converted");
+        draft.assert_can_convert();
         let draft_group = self
             .draft_groups
             .get(draft.draft_group_id as _)
             .expect("draft group not found");
-        assert!(
-            draft_group.funded,
-            "cannot convert draft from not funded group",
-        );
+        draft_group.assert_can_convert();
 
         let index = self.internal_add_lockup(&draft.lockup);
         log!(
@@ -257,7 +254,6 @@ impl Contract {
             index,
             draft_id,
         );
-
         draft.lockup_id = Some(index);
         self.drafts.replace(draft_id as _, &draft);
 
