@@ -1420,7 +1420,7 @@ fn test_view_draft_groups() {
 
     let result = e.get_draft_group(2);
     assert!(result.is_some());
-    assert_eq!(result.unwrap().num_drafts, 0);
+    assert!(result.unwrap().draft_indices.is_empty());
     let result = e.get_draft_group(3);
     assert!(result.is_none());
 
@@ -1433,7 +1433,7 @@ fn test_view_draft_groups() {
     let result = e.get_draft_groups_paged(Some(1), Some(2));
     assert_eq!(result.len(), 1);
     assert_eq!(result[0].0, 1);
-    assert_eq!(result[0].1.num_drafts, 0);
+    assert!(result[0].1.draft_indices.is_empty());
 }
 
 #[test]
@@ -1475,7 +1475,9 @@ fn test_new_draft() {
 
     // check draft group
     let res = e.get_draft_group(0).unwrap();
-    assert_eq!(res.num_drafts, 2);
+    let mut draft_indices = res.draft_indices;
+    draft_indices.sort();
+    assert_eq!(draft_indices, vec![0, 1]);
     assert_eq!(res.total_amount, amount * 2);
 }
 

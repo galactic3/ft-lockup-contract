@@ -54,7 +54,7 @@ pub struct DraftGroupView {
     #[serde(with = "u128_dec_format")]
     pub total_amount: Balance,
     pub funded: bool,
-    pub num_drafts: u32,
+    pub draft_indices: Vec<DraftIndex>,
 }
 
 impl From<DraftGroup> for DraftGroupView {
@@ -62,7 +62,7 @@ impl From<DraftGroup> for DraftGroupView {
         Self {
             total_amount: draft_group.total_amount,
             funded: draft_group.funded,
-            num_drafts: draft_group.draft_indices.len().try_into().unwrap(),
+            draft_indices: draft_group.draft_indices.into_iter().collect(),
         }
     }
 }
