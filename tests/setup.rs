@@ -271,6 +271,14 @@ impl Env {
         )
     }
 
+    pub fn new_drafts(&self, user: &UserAccount, drafts: &Vec<Draft>) -> ExecutionResult {
+        user.function_call(
+            self.contract.contract.new_drafts(drafts.clone()),
+            DEFAULT_GAS,
+            0,
+        )
+    }
+
     pub fn convert_draft(&self, user: &UserAccount, draft_id: DraftIndex) -> ExecutionResult {
         user.function_call(
             self.contract.contract.convert_draft(draft_id),

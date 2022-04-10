@@ -1482,6 +1482,41 @@ fn test_new_draft() {
 }
 
 #[test]
+fn test_new_drafts_batch() {
+    let e = Env::init(None);
+    let users = Users::init(&e);
+    e.set_time_sec(GENESIS_TIMESTAMP_SEC);
+
+    let amount = d(60000, TOKEN_DECIMALS);
+    let drafts: Vec<Draft> = vec![&users.alice, &users.bob].iter()
+        .map(|user| {
+            let lockup = Lockup::new_unlocked(user.account_id.clone(), amount);
+            let draft_group_id = 0;
+            Draft { draft_group_id, lockup_id: None, lockup }
+        })
+        .collect();
+
+    e.new_draft_group(&e.owner);
+
+    let res = e.new_drafts(&e.owner, &drafts);
+    assert!(res.is_ok());
+    let ids: Vec<DraftIndex> = res.unwrap_json();
+    assert_eq!(ids, vec![0, 1]);
+
+    // check draft group
+    let res = e.get_draft_group(0).unwrap();
+    let mut draft_indices = res.draft_indices;
+    draft_indices.sort();
+    assert_eq!(draft_indices, vec![0, 1]);
+    assert_eq!(res.total_amount, amount * 2);
+
+    let draft = e.get_draft(0).unwrap();
+    assert_eq!(draft.lockup.account_id, users.alice.valid_account_id());
+    let draft = e.get_draft(1).unwrap();
+    assert_eq!(draft.lockup.account_id, users.bob.valid_account_id());
+}
+
+#[test]
 fn test_fund_draft_group() {
     let e = Env::init(None);
     let users = Users::init(&e);
