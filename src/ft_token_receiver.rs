@@ -2,7 +2,7 @@ use crate::*;
 
 #[derive(Serialize, Deserialize)]
 #[serde(crate = "near_sdk::serde")]
-pub struct DraftGroupConfirmation {
+pub struct DraftGroupFunding {
     pub draft_group_id: DraftGroupIndex,
 }
 
@@ -32,9 +32,9 @@ impl FungibleTokenReceiver for Contract {
             );
             return PromiseOrValue::Value(0.into());
         }
-        let confirmation: Result<DraftGroupConfirmation, _> = serde_json::from_str(&msg);
-        if let Ok(confirmation) = confirmation {
-            let draft_group_id = confirmation.draft_group_id;
+        let funding: Result<DraftGroupFunding, _> = serde_json::from_str(&msg);
+        if let Ok(funding) = funding {
+            let draft_group_id = funding.draft_group_id;
             let mut draft_group = self
                 .draft_groups
                 .get(draft_group_id as _)
@@ -51,6 +51,6 @@ impl FungibleTokenReceiver for Contract {
             return PromiseOrValue::Value(0.into());
         }
 
-        panic!("Expected Lockup or DraftGroupConfirmation as msg");
+        panic!("Expected Lockup or DraftGroupFunding as msg");
     }
 }

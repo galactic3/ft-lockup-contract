@@ -8,7 +8,7 @@ use near_sdk_sim::{
 };
 
 pub use ft_lockup::draft::{Draft, DraftGroupIndex, DraftIndex};
-use ft_lockup::ft_token_receiver::DraftGroupConfirmation;
+use ft_lockup::ft_token_receiver::DraftGroupFunding;
 pub use ft_lockup::lockup::{Lockup, LockupIndex};
 pub use ft_lockup::schedule::Schedule;
 use ft_lockup::view::{DraftGroupView, DraftView, LockupView};
@@ -200,8 +200,8 @@ impl Env {
         amount: Balance,
         draft_group_id: DraftGroupIndex,
     ) -> ExecutionResult {
-        let confirmation = DraftGroupConfirmation { draft_group_id };
-        self.ft_transfer_call(user, amount, &serde_json::to_string(&confirmation).unwrap())
+        let funding = DraftGroupFunding { draft_group_id };
+        self.ft_transfer_call(user, amount, &serde_json::to_string(&funding).unwrap())
     }
 
     pub fn claim(&self, user: &UserAccount) -> ExecutionResult {
