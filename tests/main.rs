@@ -1701,7 +1701,7 @@ fn test_view_drafts() {
 }
 
 #[test]
-fn test_create_via_draft_and_claim() {
+fn test_create_via_draft_batches_and_claim() {
     let e = Env::init(None);
     let users = Users::init(&e);
     e.set_time_sec(GENESIS_TIMESTAMP_SEC);
@@ -1716,13 +1716,13 @@ fn test_create_via_draft_and_claim() {
     };
 
     e.new_draft_group(&e.owner);
-    e.new_draft(&e.owner, &draft);
+    e.new_drafts(&e.owner, &vec![draft]);
 
     // fund draft group
     let res = e.fund_draft_group(&e.owner, amount, 0);
     let balance: WrappedBalance = res.unwrap_json();
     assert_eq!(balance.0, amount);
-    let res = e.convert_draft(&users.bob, 0);
+    let res = e.convert_drafts(&users.bob, &vec![0]);
     assert!(res.is_ok());
 
     ft_storage_deposit(&users.alice, TOKEN_ID, &users.alice.account_id);
