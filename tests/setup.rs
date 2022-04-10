@@ -259,9 +259,8 @@ impl Env {
         )
     }
 
-    pub fn new_draft_group(&self, user: &UserAccount) -> DraftGroupIndex {
+    pub fn new_draft_group(&self, user: &UserAccount) -> ExecutionResult {
         user.function_call(self.contract.contract.new_draft_group(), DEFAULT_GAS, 0)
-            .unwrap_json()
     }
 
     pub fn new_draft(&self, user: &UserAccount, draft: &Draft) -> ExecutionResult {

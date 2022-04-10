@@ -1391,14 +1391,22 @@ fn test_get_token_account_id() {
 #[test]
 fn test_new_draft_group() {
     let e = Env::init(None);
+    let users = Users::init(&e);
     e.set_time_sec(GENESIS_TIMESTAMP_SEC);
 
-    let index = e.new_draft_group(&e.owner);
+    // create by not authorized account
+    let res = e.new_draft_group(&users.alice);
+    assert!(!res.is_ok(), "only deposit whitelist can create group");
+
+    let res = e.new_draft_group(&e.owner);
+    assert!(res.is_ok());
+    let index: DraftGroupIndex = res.unwrap_json();
     assert_eq!(index, 0);
-    let index = e.new_draft_group(&e.owner);
+
+    let res = e.new_draft_group(&e.owner);
+    assert!(res.is_ok());
+    let index: DraftGroupIndex = res.unwrap_json();
     assert_eq!(index, 1);
-    let index = e.new_draft_group(&e.owner);
-    assert_eq!(index, 2);
 }
 
 #[test]
@@ -1435,7 +1443,7 @@ fn test_new_draft() {
     e.set_time_sec(GENESIS_TIMESTAMP_SEC);
 
     let amount = d(60000, TOKEN_DECIMALS);
-    let lockup = Lockup::new_unlocked(users.alice.account_id, amount);
+    let lockup = Lockup::new_unlocked(users.alice.account_id.clone(), amount);
     let draft_group_id = 0;
     let draft = Draft {
         draft_group_id,
@@ -1448,6 +1456,10 @@ fn test_new_draft() {
     assert!(format!("{:?}", res.status()).contains("draft group not found"));
 
     e.new_draft_group(&e.owner);
+
+    let res = e.new_draft(&users.alice, &draft);
+    assert!(!res.is_ok());
+    assert!(format!("{:?}", res.status()).contains("Not in deposit whitelist"));
 
     // create draft 0
     let res = e.new_draft(&e.owner, &draft);

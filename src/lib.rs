@@ -212,26 +212,28 @@ impl Contract {
     }
 
     pub fn new_draft_group(&mut self) -> DraftGroupIndex {
+        self.assert_deposit_whitelist(&env::predecessor_account_id());
+
+        let index: DraftGroupIndex = self.draft_groups.len().try_into().unwrap();
         self.draft_groups.push(&DraftGroup::new());
-        (self.draft_groups.len() - 1).try_into().unwrap()
+
+        index
     }
 
     pub fn new_draft(&mut self, draft: Draft) -> DraftIndex {
+        self.assert_deposit_whitelist(&env::predecessor_account_id());
         draft.assert_new_valid();
-        let index: DraftIndex = self.drafts.len().try_into().unwrap();
-        self.drafts.push(&draft);
-
-        // draft group exists
-        // TODO: add check that group is not yet funded
-        let draft_group_id: u64 = draft.draft_group_id.into();
         let mut draft_group = self
             .draft_groups
-            .get(draft_group_id)
+            .get(draft.draft_group_id as _)
             .expect("draft group not found");
         draft_group.assert_can_add_draft();
+
+        let index: DraftIndex = self.drafts.len().try_into().unwrap();
+        self.drafts.push(&draft);
         draft_group.total_amount += draft.lockup.schedule.total_balance();
         draft_group.draft_indices.insert(index);
-        self.draft_groups.replace(draft_group_id, &draft_group);
+        self.draft_groups.replace(draft.draft_group_id as _, &draft_group);
 
         index
     }
