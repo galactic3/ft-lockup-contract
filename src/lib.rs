@@ -12,6 +12,7 @@ use near_sdk::{
 };
 
 pub mod callbacks;
+pub mod draft;
 pub mod ft_token_receiver;
 pub mod internal;
 pub mod lockup;
@@ -20,6 +21,7 @@ pub mod termination;
 pub mod util;
 pub mod view;
 
+use crate::draft::*;
 use crate::lockup::*;
 use crate::schedule::*;
 use crate::termination::*;
@@ -66,6 +68,9 @@ pub struct Contract {
 
     /// Account IDs that can create new lockups.
     pub deposit_whitelist: UnorderedSet<AccountId>,
+
+    pub drafts: Vector<Draft>,
+    pub draft_groups: Vector<DraftGroup>,
 }
 
 #[derive(BorshStorageKey, BorshSerialize)]
@@ -73,6 +78,8 @@ pub(crate) enum StorageKey {
     Lockups,
     AccountLockups,
     DepositWhitelist,
+    Drafts,
+    DraftGroups,
 }
 
 #[near_bindgen]
@@ -86,6 +93,8 @@ impl Contract {
             account_lockups: LookupMap::new(StorageKey::AccountLockups),
             token_account_id: token_account_id.into(),
             deposit_whitelist: deposit_whitelist_set,
+            drafts: Vector::new(StorageKey::Drafts),
+            draft_groups: Vector::new(StorageKey::DraftGroups),
         }
     }
 
@@ -198,5 +207,69 @@ impl Contract {
         assert_one_yocto();
         self.assert_deposit_whitelist(&env::predecessor_account_id());
         self.deposit_whitelist.remove(account_id.as_ref());
+    }
+
+    pub fn create_draft_group(&mut self) -> DraftGroupIndex {
+        self.assert_deposit_whitelist(&env::predecessor_account_id());
+
+        let index: DraftGroupIndex = self.draft_groups.len() as _;
+        self.draft_groups.push(&DraftGroup::new());
+
+        index
+    }
+
+    pub fn create_draft(&mut self, draft: Draft) -> DraftIndex {
+        self.assert_deposit_whitelist(&env::predecessor_account_id());
+        draft.assert_new_valid();
+        let mut draft_group = self
+            .draft_groups
+            .get(draft.draft_group_id as _)
+            .expect("draft group not found");
+        draft_group.assert_can_add_draft();
+
+        let index: DraftIndex = self.drafts.len() as _;
+        self.drafts.push(&draft);
+        draft_group.total_amount += draft.lockup.schedule.total_balance();
+        draft_group.draft_indices.insert(index);
+        self.draft_groups
+            .replace(draft.draft_group_id as _, &draft_group);
+
+        index
+    }
+
+    pub fn create_drafts(&mut self, drafts: Vec<Draft>) -> Vec<DraftIndex> {
+        drafts
+            .into_iter()
+            .map(|draft| self.create_draft(draft))
+            .collect()
+    }
+
+    pub fn convert_draft(&mut self, draft_id: DraftIndex) -> LockupIndex {
+        let mut draft = self.drafts.get(draft_id as _).expect("draft not found");
+        draft.assert_can_convert();
+        let draft_group = self
+            .draft_groups
+            .get(draft.draft_group_id as _)
+            .expect("draft group not found");
+        draft_group.assert_can_convert();
+
+        let index = self.internal_add_lockup(&draft.lockup);
+        log!(
+            "Created new lockup for {} with index {} from draft {}",
+            draft.lockup.account_id.as_ref(),
+            index,
+            draft_id,
+        );
+        draft.lockup_id = Some(index);
+        self.drafts.replace(draft_id as _, &draft);
+
+        index
+    }
+
+    pub fn convert_drafts(&mut self, draft_ids: Vec<DraftIndex>) -> Vec<LockupIndex> {
+        draft_ids
+            .into_iter()
+            .map(|draft_id| self.convert_draft(draft_id))
+            .collect()
     }
 }
