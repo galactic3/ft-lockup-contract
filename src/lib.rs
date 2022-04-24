@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use near_contract_standards::fungible_token::core_impl::ext_fungible_token;
 use near_contract_standards::fungible_token::receiver::FungibleTokenReceiver;
 use near_sdk::borsh::maybestd::collections::HashSet;
@@ -98,55 +100,36 @@ impl Contract {
         }
     }
 
+    pub fn claim_lockups(
+        &mut self,
+        amounts: Vec<(LockupIndex, WrappedBalance)>,
+    ) -> PromiseOrValue<WrappedBalance> {
+        let amounts: HashMap<LockupIndex, WrappedBalance> = amounts.into_iter().collect();
+        let account_id = env::predecessor_account_id();
+        let lockups_by_id: HashMap<LockupIndex, Lockup> = self
+            .internal_get_account_lockups_by_id(&account_id, &amounts.keys().map(|&x| x).collect())
+            .into_iter()
+            .collect();
+        self.internal_claim_lockups(amounts, lockups_by_id)
+    }
+
     pub fn claim(&mut self) -> PromiseOrValue<WrappedBalance> {
         let account_id = env::predecessor_account_id();
-        let lockups = self.internal_get_account_lockups(&account_id);
+        let lockups_by_id: HashMap<LockupIndex, Lockup> = self
+            .internal_get_account_lockups(&account_id)
+            .into_iter()
+            .collect();
+        let amounts: HashMap<LockupIndex, WrappedBalance> = lockups_by_id
+            .iter()
+            .map(|(lockup_id, lockup)| {
+                let unlocked_balance = lockup.schedule.unlocked_balance(current_timestamp_sec());
+                let amount: WrappedBalance = (unlocked_balance - lockup.claimed_balance).into();
 
-        if lockups.is_empty() {
-            return PromiseOrValue::Value(0.into());
-        }
+                (lockup_id.clone(), amount)
+            })
+            .collect();
 
-        let mut lockup_claims = vec![];
-        let mut total_unclaimed_balance = 0;
-        for (lockup_index, mut lockup) in lockups {
-            let lockup_claim = lockup.claim(lockup_index);
-            if lockup_claim.unclaimed_balance.0 > 0 {
-                log!(
-                    "Claiming {} form lockup #{}",
-                    lockup_claim.unclaimed_balance.0,
-                    lockup_index
-                );
-                total_unclaimed_balance += lockup_claim.unclaimed_balance.0;
-                self.lockups.replace(lockup_index as _, &lockup);
-                lockup_claims.push(lockup_claim);
-            }
-        }
-        log!("Total claim {}", total_unclaimed_balance);
-
-        if total_unclaimed_balance > 0 {
-            ext_fungible_token::ft_transfer(
-                account_id.clone(),
-                total_unclaimed_balance.into(),
-                Some(format!(
-                    "Claiming unlocked {} balance from {}",
-                    total_unclaimed_balance,
-                    env::current_account_id()
-                )),
-                &self.token_account_id,
-                ONE_YOCTO,
-                GAS_FOR_FT_TRANSFER,
-            )
-            .then(ext_self::after_ft_transfer(
-                account_id,
-                lockup_claims,
-                &env::current_account_id(),
-                NO_DEPOSIT,
-                GAS_FOR_AFTER_FT_TRANSFER,
-            ))
-            .into()
-        } else {
-            PromiseOrValue::Value(0.into())
-        }
+        self.internal_claim_lockups(amounts, lockups_by_id)
     }
 
     pub fn terminate(

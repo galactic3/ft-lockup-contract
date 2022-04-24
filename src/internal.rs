@@ -36,11 +36,80 @@ impl Contract {
         &self,
         account_id: &AccountId,
     ) -> Vec<(LockupIndex, Lockup)> {
-        self.account_lockups
-            .get(account_id)
-            .unwrap_or_default()
-            .into_iter()
-            .map(|lockup_index| (lockup_index, self.lockups.get(lockup_index as _).unwrap()))
+        let lockup_ids = self.account_lockups.get(account_id).unwrap_or_default();
+        self.internal_get_account_lockups_by_id(&account_id, &lockup_ids)
+    }
+
+    pub(crate) fn internal_get_account_lockups_by_id(
+        &self,
+        account_id: &AccountId,
+        lockup_ids: &HashSet<LockupIndex>,
+    ) -> Vec<(LockupIndex, Lockup)> {
+        let account_lockup_ids = self.account_lockups.get(account_id).unwrap_or_default();
+
+        lockup_ids
+            .iter()
+            .map(|&x| x)
+            .map(|lockup_index| {
+                assert!(
+                    account_lockup_ids.contains(&lockup_index),
+                    "lockup not found for account: {}",
+                    lockup_index,
+                );
+                let lockup = self.lockups.get(lockup_index as _).unwrap();
+                (lockup_index.clone(), lockup)
+            })
             .collect()
+    }
+
+    pub(crate) fn internal_claim_lockups(
+        &mut self,
+        amounts: HashMap<LockupIndex, WrappedBalance>,
+        mut lockups_by_id: HashMap<LockupIndex, Lockup>,
+    ) -> PromiseOrValue<WrappedBalance> {
+        let account_id = env::predecessor_account_id();
+        let mut lockup_claims = vec![];
+        let mut total_balance_to_claim = 0;
+        for (lockup_index, lockup_amount) in amounts {
+            let lockup = lockups_by_id.get_mut(&lockup_index).unwrap();
+            let lockup_claim = lockup.claim_balance(lockup_index, lockup_amount.0);
+
+            if lockup_claim.balance_to_claim.0 > 0 {
+                log!(
+                    "Claiming {} form lockup #{}",
+                    lockup_claim.balance_to_claim.0,
+                    lockup_index
+                );
+                total_balance_to_claim += lockup_claim.balance_to_claim.0;
+                self.lockups.replace(lockup_index as _, &lockup);
+                lockup_claims.push(lockup_claim);
+            }
+        }
+        log!("Total claim {}", total_balance_to_claim);
+
+        if total_balance_to_claim > 0 {
+            ext_fungible_token::ft_transfer(
+                account_id.clone(),
+                total_balance_to_claim.into(),
+                Some(format!(
+                    "Claiming unlocked {} balance from {}",
+                    total_balance_to_claim,
+                    env::current_account_id()
+                )),
+                &self.token_account_id,
+                ONE_YOCTO,
+                GAS_FOR_FT_TRANSFER,
+            )
+            .then(ext_self::after_ft_transfer(
+                account_id,
+                lockup_claims,
+                &env::current_account_id(),
+                NO_DEPOSIT,
+                GAS_FOR_AFTER_FT_TRANSFER,
+            ))
+            .into()
+        } else {
+            PromiseOrValue::Value(0.into())
+        }
     }
 }
