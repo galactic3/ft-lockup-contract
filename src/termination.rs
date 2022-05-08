@@ -13,7 +13,7 @@ pub enum HashOrSchedule {
 #[cfg_attr(not(target_arch = "wasm32"), derive(Debug, PartialEq, Clone))]
 pub struct TerminationConfig {
     /// The account ID that can terminate vesting.
-    pub terminator_id: ValidAccountId,
+    pub payer_id: ValidAccountId,
     /// An optional vesting schedule
     pub vesting_schedule: Option<HashOrSchedule>,
 }
@@ -21,19 +21,14 @@ pub struct TerminationConfig {
 impl Lockup {
     pub fn terminate(
         &mut self,
-        initiator_id: &AccountId,
         hashed_schedule: Option<Schedule>,
         termination_timestamp: TimestampSec,
-    ) -> Balance {
+    ) -> (Balance, ValidAccountId) {
         let termination_config = self
             .termination_config
             .take()
             .expect("No termination config");
-        assert_eq!(
-            termination_config.terminator_id.as_ref(),
-            initiator_id,
-            "Unauthorized"
-        );
+        let payer_id = termination_config.payer_id;
         let total_balance = self.schedule.total_balance();
         let vested_balance = match &termination_config.vesting_schedule {
             None => &self.schedule,
@@ -58,6 +53,6 @@ impl Lockup {
         if unvested_balance > 0 {
             self.schedule.terminate(vested_balance);
         }
-        unvested_balance
+        (unvested_balance, payer_id)
     }
 }

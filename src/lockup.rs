@@ -61,7 +61,7 @@ impl Lockup {
         self.claim_balance(index, balance_to_claim)
     }
 
-    pub fn assert_new_valid(&self, total_balance: Balance) {
+    pub fn assert_new_valid(&self, total_balance: Balance, payer_id: &ValidAccountId) {
         assert_eq!(
             self.claimed_balance, 0,
             "The initial lockup claimed balance should be 0"
@@ -69,6 +69,8 @@ impl Lockup {
         self.schedule.assert_valid(total_balance);
 
         if let Some(termination_config) = &self.termination_config {
+            assert_eq!(&termination_config.payer_id, payer_id, "payer_id mismatch");
+
             match &termination_config.vesting_schedule {
                 None => {
                     // Ok, using lockup schedule.

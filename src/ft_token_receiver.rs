@@ -33,7 +33,8 @@ impl FungibleTokenReceiver for Contract {
         let ft_message: FtMessage = serde_json::from_str(&msg).unwrap();
         match ft_message {
             FtMessage::Lockup(lockup) => {
-                lockup.assert_new_valid(amount);
+                // TODO: rework
+                lockup.assert_new_valid(amount, &sender_id);
                 let index = self.internal_add_lockup(&lockup);
                 log!(
                     "Created new lockup for {} with index {}",
@@ -51,8 +52,8 @@ impl FungibleTokenReceiver for Contract {
                     draft_group.total_amount, amount,
                     "The draft group total balance doesn't match the transferred balance",
                 );
-                assert!(!draft_group.funded, "draft group already funded");
-                draft_group.funded = true;
+                assert!(draft_group.payer_id.is_none(), "draft group already funded");
+                draft_group.payer_id = Some(sender_id);
                 self.draft_groups.replace(draft_group_id as _, &draft_group);
                 log!("Funded draft group {}", draft_group_id);
             }
