@@ -252,7 +252,7 @@ impl Env {
         user.function_call(
             self.contract.contract.terminate(lockup_index, None),
             TERMINATE_GAS,
-            0,
+            1,
         )
     }
 
@@ -267,7 +267,7 @@ impl Env {
                 .contract
                 .terminate(lockup_index, Some(hashed_schedule)),
             TERMINATE_GAS,
-            0,
+            1,
         )
     }
 
