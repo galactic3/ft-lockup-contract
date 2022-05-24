@@ -135,12 +135,14 @@ impl Contract {
         self.internal_claim_lockups(amounts, lockups_by_id)
     }
 
+    #[payable]
     pub fn terminate(
         &mut self,
         lockup_index: LockupIndex,
         hashed_schedule: Option<Schedule>,
         termination_timestamp: Option<TimestampSec>,
     ) -> PromiseOrValue<WrappedBalance> {
+        assert_one_yocto();
         self.assert_deposit_whitelist(&env::predecessor_account_id());
         let mut lockup = self
             .lockups
