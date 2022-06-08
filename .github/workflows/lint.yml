@@ -1,0 +1,59 @@
+name: Linter
+
+on: push
+
+jobs:
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: cargo fmt --all --check
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry/index
+            ~/.cargo/registry/cache
+            target
+          key: cargo-build-${{ hashFiles('Cargo.*') }}
+
+      - run: cargo build
+
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry/index
+            ~/.cargo/registry/cache
+            target
+          key: cargo-build-release-${{ hashFiles('Cargo.*') }}
+
+      - run: rustup target add wasm32-unknown-unknown
+
+      - run: cargo build --target wasm32-unknown-unknown --release
+
+  check-warnings:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry/index
+            ~/.cargo/registry/cache
+            target
+          key: cargo-warnings-${{ hashFiles('Cargo.*') }}
+
+      - run: cargo build
+        env:
+          RUSTFLAGS: "-D warnings"

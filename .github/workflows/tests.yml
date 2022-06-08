@@ -1,0 +1,19 @@
+name: Tests
+
+on: push
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry/index
+            ~/.cargo/registry/cache
+            target
+          key: cargo-unittests-${{ hashFiles('Cargo.*') }}
+
+      - run: cargo test
