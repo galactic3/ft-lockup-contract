@@ -343,9 +343,14 @@ impl Contract {
         } else {
             vec![account_id.expect("expected either account_id or account_ids")]
         };
-        for account_id in account_ids {
-            self.deposit_whitelist.remove(&account_id.into());
+        for account_id in &account_ids {
+            self.deposit_whitelist.remove(&account_id.to_string());
         }
+        emit(EventKind::FtLockupRemoveFromDepositWhitelist(
+            FtLockupRemoveFromDepositWhitelist {
+                account_ids: account_ids.into_iter().map(|x| x.into()).collect(),
+            },
+        ));
     }
 
     #[payable]
