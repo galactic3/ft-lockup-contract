@@ -399,6 +399,9 @@ impl Contract {
                 .is_none(),
             "Invariant"
         );
+        emit(EventKind::FtLockupCreateDraftGroup(
+            vec![FtLockupCreateDraftGroup { id: index }]
+        ));
 
         index
     }
