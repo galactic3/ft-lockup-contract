@@ -90,6 +90,7 @@ impl Contract {
     }
 
     pub fn claim(&mut self) -> PromiseOrValue<WrappedBalance> {
+        panic!("Claim temporarily disabled");
         let account_id = env::predecessor_account_id();
         let lockups = self.internal_get_account_lockups(&account_id);
 
