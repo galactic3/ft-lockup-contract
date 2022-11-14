@@ -15,6 +15,7 @@ pub mod callbacks;
 pub mod ft_token_receiver;
 pub mod internal;
 pub mod lockup;
+pub mod migrate;
 pub mod schedule;
 pub mod termination;
 pub mod util;
