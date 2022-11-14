@@ -202,7 +202,6 @@ impl Contract {
     }
 
     #[payable]
-    #[private]
     pub fn add_to_blacklist(&mut self, account_id: ValidAccountId) {
         assert_one_yocto();
         self.assert_owner();
@@ -210,7 +209,6 @@ impl Contract {
     }
 
     #[payable]
-    #[private]
     pub fn remove_to_blacklist(&mut self, account_id: ValidAccountId) {
         assert_one_yocto();
         self.assert_owner();
