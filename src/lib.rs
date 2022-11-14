@@ -198,16 +198,16 @@ impl Contract {
     }
 
     #[payable]
+    #[private]
     pub fn add_to_blacklist(&mut self, account_id: ValidAccountId) {
         assert_one_yocto();
-        self.assert_deposit_whitelist(&env::predecessor_account_id());
         self.blacklist.insert(account_id.as_ref());
     }
 
     #[payable]
+    #[private]
     pub fn remove_to_blacklist(&mut self, account_id: ValidAccountId) {
         assert_one_yocto();
-        self.assert_deposit_whitelist(&env::predecessor_account_id());
         self.blacklist.remove(account_id.as_ref());
     }
 }
