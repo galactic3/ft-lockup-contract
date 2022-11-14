@@ -103,4 +103,8 @@ impl Contract {
             schedule.assert_valid_termination_schedule(&termination_schedule);
         }
     }
+
+    pub fn get_blacklist(&self) -> Vec<AccountId> {
+        self.blacklist.to_vec()
+    }
 }
