@@ -1,5 +1,6 @@
 use near_contract_standards::fungible_token::core_impl::ext_fungible_token;
 use near_contract_standards::fungible_token::receiver::FungibleTokenReceiver;
+use near_contract_standards::upgrade::Ownable;
 use near_sdk::borsh::maybestd::collections::HashSet;
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::collections::{LookupMap, UnorderedSet, Vector};
@@ -69,6 +70,8 @@ pub struct Contract {
     pub deposit_whitelist: UnorderedSet<AccountId>,
     /// Account IDs that can't claim for some reason
     pub blacklist: UnorderedSet<AccountId>,
+
+    pub owner_id: AccountId,
 }
 
 #[derive(BorshStorageKey, BorshSerialize)]
@@ -91,6 +94,7 @@ impl Contract {
             token_account_id: token_account_id.into(),
             deposit_whitelist: deposit_whitelist_set,
             blacklist: UnorderedSet::new(StorageKey::Blacklist),
+            owner_id: env::predecessor_account_id(),
         }
     }
 
@@ -201,6 +205,7 @@ impl Contract {
     #[private]
     pub fn add_to_blacklist(&mut self, account_id: ValidAccountId) {
         assert_one_yocto();
+        self.assert_owner();
         self.blacklist.insert(account_id.as_ref());
     }
 
@@ -208,6 +213,7 @@ impl Contract {
     #[private]
     pub fn remove_to_blacklist(&mut self, account_id: ValidAccountId) {
         assert_one_yocto();
+        self.assert_owner();
         self.blacklist.remove(account_id.as_ref());
     }
 }
